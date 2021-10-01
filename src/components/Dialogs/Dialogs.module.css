@@ -1,0 +1,51 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  height: 100%;
+}
+
+.dialogs__Items a {
+  text-decoration: none;
+  color: gray;
+}
+
+.dialogs__Items a .active {
+  color: black;
+  font-weight: 600;
+}
+
+.messages {
+  display: grid;
+  grid-template-rows: 10fr 2fr;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 5px;  
+  justify-content: stretch;
+}
+
+.Message_Area {
+  padding: 5px;
+  height: 70vh;
+  overflow-y: scroll ;
+}
+.New_Message_Area {
+  align-self: end;
+  padding: 5px;
+  height: fit-content;
+}
+
+.textarea {
+  height: 50px;
+  width: 100%;
+  resize: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.send_button {
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 3px;
+}

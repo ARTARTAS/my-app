@@ -1,0 +1,20 @@
+.MyPosts{
+    padding: 5px;
+}
+.textArea{
+    width: 100%;
+}
+.newPost{       
+    height: 50px;
+    width: 100%;
+    resize: none;
+    border: 1px solid gray ;
+    border-radius: 5px;
+  }
+
+.button{
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 3px;
+}
