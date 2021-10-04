@@ -9,16 +9,19 @@ import NavBar from './components/NavBar/NavBar';
 import News from './components/News/News';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
+import UsersContainer from './components/Users/UsersContainer';
+
 
 let App = (props) => {
-  return ( 
+  return (
     <BrowserRouter>
       <div className='app-wrapper'>
         <Header />
         <NavBar />
         <div className='app-wrapper__content' >
-          <Route path='/profile' render={() => <Profile store={props.store}/>} />
-          <Route path='/dialogs' render={() => <DialogsContainer store={props.store}/>} />
+          <Route path='/profile' render={() => <Profile store={props.store} />} />
+          <Route path='/dialogs' render={() => <DialogsContainer store={props.store} />} />
+          <Route path='/users' render={() => <UsersContainer />} />
           <Route path='/news' render={() => <News />} />
           <Route path='/music' render={() => <Music />} />
           <Route path='/settings' render={() => <Settings />} />
