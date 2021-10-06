@@ -1,7 +1,54 @@
-.descriptionBlock{
-    padding: 5px;
+.infoBlock {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  padding: 5px;
 }
-.avatar{
-    width: 200px;
-    height: 200px;
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+.descriptionBlock {
+  margin-left: 5px;
+  padding: 5px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.pData {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.fullName {
+  font-size: 32px;
+  font-weight: 600;
+  padding: 5px;
+}
+.aboutMe {
+  padding: 5px;
+}
+.lfj {
+  padding: 3px;
+  margin-top: 10px;
+}
+.contacts {
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-end;
+  width: 100%;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.contact {
+  padding: 3px;
 }
