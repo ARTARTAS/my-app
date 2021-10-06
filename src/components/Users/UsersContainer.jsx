@@ -2,12 +2,12 @@ import React from "react";
 import * as axios from "axios";
 import { connect } from "react-redux";
 import {
-  followActionCreator,
-  setCurrentPageActionCreator,
-  setFetchingActionCreator,
-  setTotalUsersCountActionCreator,
-  setUsersActionCreator,
-  unfollowActionCreator,
+  followUser,
+  unfollowUser,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  setFetching,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
@@ -65,28 +65,36 @@ let mapStateToProps = (state) => {
   };
 };
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    followUser: (userId) => {
-      dispatch(followActionCreator(userId));
-    },
-    unfollowUser: (userId) => {
-      dispatch(unfollowActionCreator(userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersActionCreator(users));
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageActionCreator(currentPage));
-    },
-    setTotalUsersCount: (totalCount) => {
-      dispatch(setTotalUsersCountActionCreator(totalCount));
-    },
-    setFetching: (isFetching) => {
-      dispatch(setFetchingActionCreator(isFetching));
-    },
-  };
-};
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI);
+// let mapDispatchToProps = (dispatch) => {
+//   return {
+//     followUser: (userId) => {
+//       dispatch(followActionCreator(userId));
+//     },
+//     unfollowUser: (userId) => {
+//       dispatch(unfollowActionCreator(userId));
+//     },
+//     setUsers: (users) => {
+//       dispatch(setUsersActionCreator(users));
+//     },
+//     setCurrentPage: (currentPage) => {
+//       dispatch(setCurrentPageActionCreator(currentPage));
+//     },
+//     setTotalUsersCount: (totalCount) => {
+//       dispatch(setTotalUsersCountActionCreator(totalCount));
+//     },
+//     setFetching: (isFetching) => {
+//       dispatch(setFetchingActionCreator(isFetching));
+//     },
+//   };
+// };
+
+const UsersContainer = connect(mapStateToProps, {
+  followUser,
+  unfollowUser,
+  setUsers,
+  setCurrentPage,
+  setTotalUsersCount,
+  setFetching,
+})(UsersAPI);
 
 export default UsersContainer;
