@@ -3,34 +3,20 @@ import { connect } from "react-redux";
 import {
   followUser,
   unfollowUser,
-  setUsers,
-  setCurrentPage,
-  setTotalUsersCount,
-  setFetching,
   setFollowRequest,
+  getUsers,
+  follow,
+  unFollow,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
-import { usersAPI } from "../../API/API";
 
 class UsersAPI extends React.Component {
   componentDidMount() {
-    this.props.setFetching(true);
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then((data) => {
-        this.props.setFetching(false);
-        this.props.setUsers(data.items);
-        this.props.setTotalUsersCount(data.totalCount);
-      });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
   onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.setFetching(true);
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
-      this.props.setFetching(false);
-      this.props.setUsers(data.items);
-    });
+    this.props.getUsers(pageNumber, this.props.pageSize);
   };
   render() {
     return (
@@ -46,6 +32,8 @@ class UsersAPI extends React.Component {
           followUser={this.props.followUser}
           setFollowRequest={this.props.setFollowRequest}
           followRequest={this.props.followRequest}
+          follow={this.props.follow}
+          unFollow={this.props.unFollow}
         />
       </div>
     );
@@ -66,11 +54,10 @@ let mapStateToProps = (state) => {
 const UsersContainer = connect(mapStateToProps, {
   followUser,
   unfollowUser,
-  setUsers,
-  setCurrentPage,
-  setTotalUsersCount,
-  setFetching,
   setFollowRequest,
+  getUsers,
+  follow,
+  unFollow
 })(UsersAPI);
 
 export default UsersContainer;

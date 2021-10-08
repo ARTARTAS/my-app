@@ -29,32 +29,20 @@ const Users = (props) => {
             <div>
               {u.followed ? (
                 <button
-                  disabled={props.followRequest.some(id => id === u.id)}
+                  disabled={props.followRequest.some((id) => id === u.id)}
                   className={s.followButton}
                   onClick={() => {
-                    props.setFollowRequest(true, u.id);
-                    usersAPI.unFollow(u.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.unfollowUser(u.id);
-                      }
-                      props.setFollowRequest(false, u.id);
-                    });
+                    props.unFollow(u.id);
                   }}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
-                  disabled={props.followRequest.some(id => id === u.id)}
+                  disabled={props.followRequest.some((id) => id === u.id)}
                   className={s.unfollowButton}
                   onClick={() => {
-                    props.setFollowRequest(true, u.id);
-                    usersAPI.follow(u.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.followUser(u.id);
-                      }
-                      props.setFollowRequest(false, u.id);
-                    });
+                    props.follow(u.id);
                   }}
                 >
                   Follow

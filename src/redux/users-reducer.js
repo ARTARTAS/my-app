@@ -1,3 +1,5 @@
+import { usersAPI } from "../API/API";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -61,7 +63,7 @@ const usersReducer = (state = initialState, action) => {
         case TOGGLE_FOLLOW_REQUEST:
             return {
                 ...state,
-                followRequest: action.followRequest ? [...state.followRequest, action.id] : state.followRequest.filter(id => id != action.id)
+                followRequest: action.followRequest ? [...state.followRequest, action.id] : state.followRequest.filter(id => id !== action.id)
             }
         default:
             return state;
@@ -77,4 +79,39 @@ export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_
 export const setFetching = (isFetching) => ({ type: TOGGLE_FETCHING, isFetching })
 export const setFollowRequest = (followRequest, id) => ({ type: TOGGLE_FOLLOW_REQUEST, followRequest, id })
 
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setFetching(true));
+        usersAPI
+            .getUsers(currentPage, pageSize)
+            .then((data) => {
+                dispatch(setFetching(false));
+                dispatch(setUsers(data.items));
+                dispatch(setTotalUsersCount(data.totalCount));
+                dispatch(setCurrentPage(currentPage))
+            });
+    }
+}
+export const follow = (id) => {
+    return (dispatch) => {
+        dispatch(setFollowRequest(true, id))
+        usersAPI.follow(id).then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(followUser(id));
+            }
+            dispatch(setFollowRequest(false, id));
+        });
+    }
+}
+export const unFollow = (id) => {
+    return (dispatch) => {
+        dispatch(setFollowRequest(true, id));
+        usersAPI.unFollow(id).then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(unfollowUser(id));
+            }
+            dispatch(setFollowRequest(false, id));
+        });
+    }
+}
 export default usersReducer;
