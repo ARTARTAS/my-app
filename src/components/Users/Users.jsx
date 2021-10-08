@@ -12,7 +12,7 @@ const Users = (props) => {
   return (
     <div>
       {props.users.map((u) => (
-        <div key={u.id} className={s.userArea}>
+        <div className={s.userArea} key={u.id}>
           <div>
             <div>
               <NavLink to={"/profile/" + u.id}>
@@ -29,12 +29,15 @@ const Users = (props) => {
             <div>
               {u.followed ? (
                 <button
+                  disabled={props.followRequest.some(id => id === u.id)}
                   className={s.followButton}
                   onClick={() => {
+                    props.setFollowRequest(true, u.id);
                     usersAPI.unFollow(u.id).then((data) => {
                       if (data.resultCode === 0) {
                         props.unfollowUser(u.id);
                       }
+                      props.setFollowRequest(false, u.id);
                     });
                   }}
                 >
@@ -42,12 +45,15 @@ const Users = (props) => {
                 </button>
               ) : (
                 <button
+                  disabled={props.followRequest.some(id => id === u.id)}
                   className={s.unfollowButton}
                   onClick={() => {
+                    props.setFollowRequest(true, u.id);
                     usersAPI.follow(u.id).then((data) => {
                       if (data.resultCode === 0) {
                         props.followUser(u.id);
                       }
+                      props.setFollowRequest(false, u.id);
                     });
                   }}
                 >
@@ -64,8 +70,8 @@ const Users = (props) => {
               </div>
             </div>
             <div className={s.rightBlock}>
-              <div>{"u.location.city"}</div>
-              <div>{"u.location.country"}</div>
+              <div>{""}</div>
+              <div>{""}</div>
             </div>
           </div>
         </div>

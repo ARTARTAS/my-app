@@ -7,6 +7,7 @@ import {
   setCurrentPage,
   setTotalUsersCount,
   setFetching,
+  setFollowRequest,
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Common/Preloader/Preloader";
@@ -15,11 +16,13 @@ import { usersAPI } from "../../API/API";
 class UsersAPI extends React.Component {
   componentDidMount() {
     this.props.setFetching(true);
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then((data) => {
-      this.props.setFetching(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalUsersCount(data.totalCount);
-    });
+    usersAPI
+      .getUsers(this.props.currentPage, this.props.pageSize)
+      .then((data) => {
+        this.props.setFetching(false);
+        this.props.setUsers(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
+      });
   }
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
@@ -41,6 +44,8 @@ class UsersAPI extends React.Component {
           totalUsersCount={this.props.totalUsersCount}
           unfollowUser={this.props.unfollowUser}
           followUser={this.props.followUser}
+          setFollowRequest={this.props.setFollowRequest}
+          followRequest={this.props.followRequest}
         />
       </div>
     );
@@ -54,31 +59,9 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    followRequest: state.usersPage.followRequest,
   };
 };
-
-// let mapDispatchToProps = (dispatch) => {
-//   return {
-//     followUser: (userId) => {
-//       dispatch(followActionCreator(userId));
-//     },
-//     unfollowUser: (userId) => {
-//       dispatch(unfollowActionCreator(userId));
-//     },
-//     setUsers: (users) => {
-//       dispatch(setUsersActionCreator(users));
-//     },
-//     setCurrentPage: (currentPage) => {
-//       dispatch(setCurrentPageActionCreator(currentPage));
-//     },
-//     setTotalUsersCount: (totalCount) => {
-//       dispatch(setTotalUsersCountActionCreator(totalCount));
-//     },
-//     setFetching: (isFetching) => {
-//       dispatch(setFetchingActionCreator(isFetching));
-//     },
-//   };
-// };
 
 const UsersContainer = connect(mapStateToProps, {
   followUser,
@@ -87,6 +70,7 @@ const UsersContainer = connect(mapStateToProps, {
   setCurrentPage,
   setTotalUsersCount,
   setFetching,
+  setFollowRequest,
 })(UsersAPI);
 
 export default UsersContainer;
