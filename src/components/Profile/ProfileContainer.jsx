@@ -23,12 +23,11 @@ let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
 });
 
-const ProfileContainer =compose(
+const ProfileContainer = compose(
   connect(mapStateToProps, {
     getProfile,
   }),
-  withAuthRedirect,
   withRouter
-)(ProfileAPI)
+)(ProfileAPI);
 
 export default ProfileContainer;
