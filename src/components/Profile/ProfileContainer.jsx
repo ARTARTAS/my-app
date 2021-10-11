@@ -18,9 +18,9 @@ class ProfileAPI extends React.Component {
   }
 }
 
-let WithUrlDataContainerComponent = withRouter(ProfileAPI);
+let WithUrlData = withRouter(ProfileAPI);
 
-let AuthRedirectComponent = withAuthRedirect(WithUrlDataContainerComponent);
+let WithRedirect = withAuthRedirect(WithUrlData);
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
@@ -28,6 +28,6 @@ let mapStateToProps = (state) => ({
 
 const ProfileContainer = connect(mapStateToProps, {
   getProfile,
-})(AuthRedirectComponent);
+})(WithRedirect);
 
 export default ProfileContainer;
