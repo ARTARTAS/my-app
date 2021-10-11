@@ -21,12 +21,6 @@ class ProfileAPI extends React.Component {
 let WithUrlDataContainerComponent = withRouter(ProfileAPI);
 
 let AuthRedirectComponent = withAuthRedirect(WithUrlDataContainerComponent);
-let mapStateToPropsForredirect = (state) => ({
-  isAuth: state.auth.isAuth,
-});
-AuthRedirectComponent = connect(mapStateToPropsForredirect)(
-  AuthRedirectComponent
-);
 
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,

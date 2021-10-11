@@ -7,14 +7,6 @@ import {
 import Dialogs from "./Dialogs";
 
 let AuthRedirectComponent = withAuthRedirect(Dialogs);
-let mapStateToPropsForredirect = (state) => {
-  return {
-    isAuth: state.auth.isAuth,
-  };
-};
-AuthRedirectComponent = connect(mapStateToPropsForredirect)(
-  AuthRedirectComponent
-);
 
 let mapStateToProps = (state) => {
   return {
