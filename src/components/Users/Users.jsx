@@ -53,9 +53,13 @@ const Users = (props) => {
           <div className={s.description}>
             <div className={s.leftBlock}>
               <div className={s.fullName}>{u.name}</div>
-              <div className={s.status}>
-                <div>{u.status}</div>
-              </div>
+              {u.status ? (
+                <div className={s.status}>
+                  <div>{u.status}</div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className={s.rightBlock}>
               <div>{""}</div>
