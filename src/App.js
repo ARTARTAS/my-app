@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Login from './components/Login/Login';
 import Music from './components/Music/Music';
 import NavBar from './components/NavBar/NavBar';
 import News from './components/News/News';
@@ -19,6 +20,7 @@ let App = (props) => {
         <HeaderContainer />
         <NavBar />
         <div className='app-wrapper__content' >
+          <Route path='/login' render={() => <Login />} />
           <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
           <Route path='/dialogs' render={() => <DialogsContainer />} />
           <Route path='/users' render={() => <UsersContainer />} />
