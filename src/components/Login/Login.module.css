@@ -1,0 +1,42 @@
+.login__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: white;
+}
+.login__title {
+  align-self: center;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.login {
+  width: 100%;
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 5px ;
+}
+
+.password {
+  width: 100%;
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 5px ;
+}
+
+.button {
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 3px;
+  margin-top: 5px ;
+}
