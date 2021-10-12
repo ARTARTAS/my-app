@@ -4,8 +4,8 @@ import s from "./Status.module.css";
 class ProfileStatus extends React.Component {
   state = {
     editMode: false,
-    status: this.props.status,       
-  };  
+    status: this.props.status,
+  };
   activateEditMode = () => {
     this.setState({
       editMode: true,
@@ -15,7 +15,7 @@ class ProfileStatus extends React.Component {
     let text = e.currentTarget.value;
     this.setState({
       status: text,
-    });
+    });    
   };
   deactivateEditMode = () => {
     this.props.updateStatus(this.state.status);
@@ -23,11 +23,21 @@ class ProfileStatus extends React.Component {
       editMode: false,
     });
   };
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status,
+      });
+    }
+  }
   render() {
     return (
       <div className={s.status}>
         {!this.state.editMode ? (
-          <div className={s.status__show} onClick={this.activateEditMode || "Change your status"}>
+          <div
+            className={s.status__show}
+            onClick={this.activateEditMode || "Change your status"}
+          >
             {this.props.status}
           </div>
         ) : (
