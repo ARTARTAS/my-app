@@ -6,7 +6,10 @@ const NavBar = (props) => {
   return (
     <nav className={s.nav}>
       <div className={s.item}>
-        <NavLink to={`/profile/${props.id}`} activeClassName={s.activeLink}>
+        <NavLink
+          to={!props.id ? (`/profile/`) : (`/profile/${props.id}`)}
+          activeClassName={s.activeLink}
+        >
           Profile
         </NavLink>
       </div>
