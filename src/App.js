@@ -6,7 +6,7 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import Music from './components/Music/Music';
-import NavBar from './components/NavBar/NavBar';
+import NavBarContainer from './components/NavBar/NavBarContainer';
 import News from './components/News/News';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from './components/Settings/Settings';
@@ -18,7 +18,7 @@ let App = (props) => {
     <BrowserRouter>
       <div className='app-wrapper'>
         <HeaderContainer />
-        <NavBar />
+        <NavBarContainer />
         <div className='app-wrapper__content' >
           <Route path='/login' render={() => <Login />} />
           <Route path='/profile/:userId?' render={() => <ProfileContainer />} />
