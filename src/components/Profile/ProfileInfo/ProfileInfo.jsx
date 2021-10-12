@@ -21,9 +21,17 @@ const ProfileInfo = (props) => {
       <div className={s.descriptionBlock}>
         <div className={s.pData}>
           <div className={s.fullName}>{props.profile.fullName}</div>
-          <ProfileStatus status={props.profile.aboutMe} />          
+          <ProfileStatus
+            status={props.status}
+            updateStatus={props.updateStatus}
+          />
         </div>
+
         <div className={s.contacts}>
+          <div>
+            About me:
+            <div className={s.aboutMe}>{props.profile.aboutMe}</div>
+          </div>
           Contacts:
           <div className={s.contact}>
             faceboock: {props.profile.contacts.facebook}

@@ -8,6 +8,7 @@
   height: 100%;
   border-radius: 5px;
 }
+
 .descriptionBlock {
   margin-left: 5px;
   padding: 5px;
@@ -17,6 +18,10 @@
   justify-content: space-between;
   width: 100%;
   border-radius: 5px;
+}
+
+.aboutMe{
+  padding: 3px;  
 }
 
 .pData {
