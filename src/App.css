@@ -11,7 +11,10 @@
   gap: 10px;
 }
 
-.app-wrapper__content {
+.app-wrapper__content {  
+  display: flex; 
+  flex-direction: column;
+  max-width: 1000px;
   padding: 5px;
   grid-area: c;
   background-color: lightgrey;
