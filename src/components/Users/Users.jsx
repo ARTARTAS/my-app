@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { usersAPI } from "../../API/API";
 import s from "./Users.module.css";
 
 const Users = (props) => {
@@ -23,6 +22,7 @@ const Users = (props) => {
                       ? u.photos.large
                       : "https://html5css.ru/howto/img_avatar.png"
                   }
+                  alt="avatar"
                 />
               </NavLink>
             </div>
