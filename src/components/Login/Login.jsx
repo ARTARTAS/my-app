@@ -6,7 +6,7 @@ import { login } from "../../redux/auth-reducer";
 import { maxLenghtCreator, required } from "../../Utils/Validators/Validators";
 import { Input } from "../Common/Formcontrols/FormControls";
 import s from "./Login.module.css";
-import style from "./../Common/Formcontrols/FormControl.module.css"
+import style from "./../Common/Formcontrols/FormControl.module.css";
 
 let maxLength16 = maxLenghtCreator(16);
 
@@ -37,7 +37,9 @@ export const LoginForm = (props) => {
         <Field component={"input"} type="checkbox" name="rememberMe" />
         Remember me
       </div>
-      {props.error && <div className={style.formSummaryError}>{props.error}</div>}
+      {props.error && (
+        <div className={style.formSummaryError}>{props.error}</div>
+      )}
       <button onClick={props.handleSubmit} className={s.button}>
         Login
       </button>
