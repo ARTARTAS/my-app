@@ -28,7 +28,7 @@ export const setAuthUserData = (id, email, login, isAuth) => ({ type: SET_USER_D
 
 export const getAuth = () => {
     return (dispatch) => {
-        authAPI.getAuthMe().then((data) => {
+        return authAPI.getAuthMe().then((data) => {
             if (data.resultCode === 0) {
                 let { id, email, login } = data.data;
                 dispatch(setAuthUserData(id, email, login, true));
@@ -45,7 +45,7 @@ export const login = (email, password, rememberMe) => {
             } else {
                 console.log(data)
                 let message = data.messages.length > 0 ? data.messages[0] : "Some error";
-                let action = stopSubmit("Login", {_error: message});
+                let action = stopSubmit("Login", { _error: message });
                 dispatch(action);
             }
         });
