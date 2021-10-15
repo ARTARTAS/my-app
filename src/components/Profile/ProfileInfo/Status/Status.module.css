@@ -22,3 +22,8 @@
   min-width: 200px;
   height: 25px;
 }
+
+.statusPlaseholder{
+  font-style: italic;
+  color: gray;
+}

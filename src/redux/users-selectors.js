@@ -1,3 +1,5 @@
+// import { createSelector } from "reselect";
+
 export const getUsers = (state) => {
     return state.usersPage.users;
 }
@@ -21,3 +23,9 @@ export const getIsFetching = (state) => {
 export const getFollowRequest = (state) => {
     return state.usersPage.followRequest;
 }
+
+// export const reselectSelector = createSelector(getUsers, (users)=>{
+// debugger
+//     return users.filter(u => u.status);
+// })
+

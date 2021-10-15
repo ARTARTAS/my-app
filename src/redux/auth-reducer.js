@@ -61,4 +61,5 @@ export const logout = () => {
         });
     }
 }
+
 export default authReducer;

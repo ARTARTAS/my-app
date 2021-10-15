@@ -46,7 +46,6 @@ export const addPostActionCreator = (newPostText) => ({ type: ADD_POST, newPostT
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
 export const setUserStatus = (text) => ({ type: SET_USER_STATUS, text });
 
-
 export const getProfile = (id) => {
     return (dispatch) => {
         profileAPI.getProfile(id).then((data) => {
@@ -54,6 +53,7 @@ export const getProfile = (id) => {
         });
     }
 }
+
 export const getStatus = (id) => {
     return (dispatch) => {
         profileAPI.getStatus(id).then((data) => {
@@ -61,6 +61,7 @@ export const getStatus = (id) => {
         });
     }
 }
+
 export const updateStatus = (text) => {
     return (dispatch) => {
         profileAPI.updateStatus(text).then((response) => {

@@ -8,7 +8,6 @@ const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
 const TOGGLE_FOLLOW_REQUEST = 'TOGGLE-FOLLOW-REQUEST';
 
-
 let initialState = {
     users: [],
     pageSize: 10,
@@ -16,7 +15,7 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     followRequest: []
-}
+};
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -69,29 +68,29 @@ const usersReducer = (state = initialState, action) => {
             return state;
     }
 
-}
+};
 
-export const followUser = (userId) => ({ type: FOLLOW, userId })
-export const unfollowUser = (userId) => ({ type: UNFOLLOW, userId })
-export const setUsers = (users) => ({ type: SET_USERS, users })
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
-export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
-export const setFetching = (isFetching) => ({ type: TOGGLE_FETCHING, isFetching })
-export const setFollowRequest = (followRequest, id) => ({ type: TOGGLE_FOLLOW_REQUEST, followRequest, id })
+export const followUser = (userId) => ({ type: FOLLOW, userId });
+export const unfollowUser = (userId) => ({ type: UNFOLLOW, userId });
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount });
+export const setFetching = (isFetching) => ({ type: TOGGLE_FETCHING, isFetching });
+export const setFollowRequest = (followRequest, id) => ({ type: TOGGLE_FOLLOW_REQUEST, followRequest, id });
 
-export const requestUsers = (currentPage, pageSize) => {
+export const requestUsers = (page, pageSize) => {
     return (dispatch) => {
         dispatch(setFetching(true));
         usersAPI
-            .getUsers(currentPage, pageSize)
+            .getUsers(page, pageSize)
             .then((data) => {
                 dispatch(setFetching(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsersCount(data.totalCount));
-                dispatch(setCurrentPage(currentPage))
+                dispatch(setCurrentPage(page))
             });
     }
-}
+};
 export const follow = (id) => {
     return (dispatch) => {
         dispatch(setFollowRequest(true, id))
@@ -102,7 +101,7 @@ export const follow = (id) => {
             dispatch(setFollowRequest(false, id));
         });
     }
-}
+};
 export const unFollow = (id) => {
     return (dispatch) => {
         dispatch(setFollowRequest(true, id));
@@ -113,5 +112,5 @@ export const unFollow = (id) => {
             dispatch(setFollowRequest(false, id));
         });
     }
-}
+};
 export default usersReducer;

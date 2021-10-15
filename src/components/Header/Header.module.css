@@ -18,3 +18,25 @@
 .loginBlock a{
   color: white;
 }
+.userName{
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px;
+  color: white;
+}
+.logout{  
+  margin-left: 5px;
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.loginLink{
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px;
+  color: white;
+}

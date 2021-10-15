@@ -2,6 +2,7 @@ import React from "react";
 import Preloader from "../../Common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import ProfileStatus from "./Status/Status";
+import ProfileStatusWithHooks from "./Status/StatusWithHooks";
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -21,7 +22,7 @@ const ProfileInfo = (props) => {
       <div className={s.descriptionBlock}>
         <div className={s.pData}>
           <div className={s.fullName}>{props.profile.fullName}</div>
-          <ProfileStatus
+          <ProfileStatusWithHooks
             status={props.status}
             updateStatus={props.updateStatus}
           />
