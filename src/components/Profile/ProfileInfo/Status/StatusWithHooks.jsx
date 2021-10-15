@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./Status.module.css";
 
 const ProfileStatusWithHooks = (props) => {
@@ -9,22 +9,26 @@ const ProfileStatusWithHooks = (props) => {
     setEditMode(true);
   };
   const deactivateEditMode = () => {
-    props.updateStatus(status)
+    props.updateStatus(status);
     setEditMode(false);
   };
   const onStatuschange = (e) => {
     let text = e.currentTarget.value;
     setStatus(text);
   };
-  console.log(status)
+
+  useEffect(() => {
+    setStatus(props.status);
+  },[props.status]);
+
+  console.log(status);
   return (
     <div className={s.status}>
       {!editMode ? (
-        <div
-          className={s.status__show}
-          onClick={activateEditMode}
-        >
-          {props.status || (<div className={s.statusPlaseholder} >Change your status</div>)}
+        <div className={s.status__show} onClick={activateEditMode}>
+          {props.status || (
+            <div className={s.statusPlaseholder}>Change your status</div>
+          )}
         </div>
       ) : (
         <input
