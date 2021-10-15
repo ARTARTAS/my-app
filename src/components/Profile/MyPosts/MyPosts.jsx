@@ -3,7 +3,7 @@ import s from "./MyPosts.module.css";
 import NewPostForm from "./NewPost/NewPostForm";
 import Post from "./Post/Post";
 
-const MyPosts = (props) => {
+const MyPosts = React.memo((props) => {
   let postElements = props.PostData.map((p) => (
     <Post message={p.message} key={p.id} likesCount={p.likesCount} />
   )); 
@@ -15,5 +15,5 @@ const MyPosts = (props) => {
       <div className={s.posts}>{postElements}</div>
     </div>
   );
-};
+})
 export default MyPosts;

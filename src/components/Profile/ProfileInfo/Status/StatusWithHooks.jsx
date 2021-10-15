@@ -21,7 +21,6 @@ const ProfileStatusWithHooks = (props) => {
     setStatus(props.status);
   },[props.status]);
 
-  console.log(status);
   return (
     <div className={s.status}>
       {!editMode ? (
