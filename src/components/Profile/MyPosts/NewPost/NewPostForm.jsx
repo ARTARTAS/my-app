@@ -9,8 +9,7 @@ let maxLength20 = maxLenghtCreator(20);
 const NewPostForm = (props) => {
   return (
     <div className={s.NewPost__block}>
-      <form onSubmit={props.handleSubmit}>
-        <h3>New post</h3>
+      <form onSubmit={props.handleSubmit}>        
         <Field
           component={Textarea}          
           name="newPostText"
