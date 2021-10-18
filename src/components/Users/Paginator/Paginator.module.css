@@ -1,0 +1,17 @@
+.pageNumber {
+  margin-left: 5px;
+  padding: 1px;
+  height: 20px;  
+  background-color: lightgray;
+  color: gray;
+}
+
+.selectedPage {
+  padding: 1px;
+  margin-left: 5px;
+  height: 20px;  
+  font-weight: 700;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-radius: 6px; 
+}
