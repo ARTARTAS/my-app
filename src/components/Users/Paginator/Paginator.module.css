@@ -1,17 +1,49 @@
+.paginator {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
+}
+
 .pageNumber {
-  margin-left: 5px;
-  padding: 1px;
-  height: 20px;  
-  background-color: lightgray;
-  color: gray;
+  margin-left: 1px;
+  margin-right: 1px;
+  margin-top: 5px;
+  width: fit-content;
+  min-width: 30px;  
+  border-radius: 5px;
+  padding: 5px 1px;
+  font-weight: 600;
 }
 
 .selectedPage {
-  padding: 1px;
-  margin-left: 5px;
-  height: 20px;  
-  font-weight: 700;
-  background-color: lightgray;
+  margin-top: 5px;
+  width: fit-content;
+  min-width: 30px;
   border: 1px solid black;
-  border-radius: 6px; 
+  border-radius: 5px;
+  padding: 5px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.previos {
+  margin-top: 5px;
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.next {
+  margin-top: 5px;
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: white;
+  font-weight: 600;
 }

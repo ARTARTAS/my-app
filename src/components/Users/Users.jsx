@@ -5,7 +5,13 @@ import s from "./Users.module.css";
 
 const Users = (props) => {
   return (
-    <div>      
+    <div>  
+      <Paginator
+        pageSize={props.pageSize}
+        totalItemCount={props.totalUsersCount}
+        currentPage={props.currentPage}
+        onPageChanged={props.onPageChanged}
+      />    
       <div>
         {props.users.map((u) => (
           <div className={s.userArea} key={u.id}>
@@ -65,13 +71,7 @@ const Users = (props) => {
             </div>
           </div>
         ))}
-      </div>
-      <Paginator
-        pageSize={props.pageSize}
-        totalUsersCount={props.totalUsersCount}
-        currentPage={props.currentPage}
-        onPageChanged={props.onPageChanged}
-      />
+      </div>      
     </div>
   );
 };
