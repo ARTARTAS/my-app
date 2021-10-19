@@ -34,12 +34,12 @@ class ProfileStatus extends React.Component {
     return (
       <div className={s.status}>
         {!this.state.editMode ? (
-          <div
+          <span
             className={s.status__show}
             onClick={this.activateEditMode || "Change your status"}
           >
             {this.props.status}
-          </div>
+          </span>
         ) : (
           <input
             className={s.status__edit}
