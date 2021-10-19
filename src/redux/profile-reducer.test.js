@@ -1,6 +1,6 @@
-import React from 'react'
 import profileReducer, { addPostActionCreator, deletePost } from "./profile-reducer";
 //test data
+describe("profileReducer", () => {
 let state = {
     PostData: [
         { id: 1, message: "hi", likesCount: 5 },
@@ -57,3 +57,4 @@ test('PostData length should not decrement if incorrect id ', () => {
     //expectation
     expect(newState.PostData.length).toBe(2);
 });
+})

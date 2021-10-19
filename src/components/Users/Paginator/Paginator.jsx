@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "./Paginator.module.css";
 
 const Paginator = ({
@@ -31,6 +31,10 @@ const Paginator = ({
     onPageChanged((portionNumber - 1) * portionSize);
   };
 
+  useEffect(() => {
+    setportionNumber(Math.ceil(currentPage / portionSize));
+  }, [currentPage]);
+
   return (
     <div className={s.paginator}>
       <button
@@ -58,8 +62,8 @@ const Paginator = ({
           );
         })}
       <button
-        disabled={portionNumber === portionCount}
         className={s.next}
+        disabled={portionNumber === portionCount}
         onClick={nextPageSelect}
       >
         Next
