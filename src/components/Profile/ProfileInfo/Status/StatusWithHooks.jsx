@@ -22,7 +22,6 @@ const ProfileStatusWithHooks = (props) => {
   useEffect(() => {
     setStatus(props.status);
   }, [props.status]);
-  console.log(props.currentId, props.authId);
   return (
     <div className={s.status}>
       {!editMode ? (

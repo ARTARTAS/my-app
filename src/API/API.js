@@ -42,11 +42,11 @@ export const authAPI = {
             instance.post(`/auth/login`, body)
         ).then(response => response.data);
     },
-    logout() {        
+    logout() {
         return (
             instance.delete(`/auth/login`)
         ).then(response => response.data);
-    }, 
+    },
 
 }
 
@@ -65,6 +65,16 @@ export const profileAPI = {
         return (
             instance.put(`profile/status`, { status: text }).then(response => (response.data))
         )
-    }
-
+    },
+    savePhoto(photo) {
+        let formData = new FormData();
+        formData.append("image", photo)
+        return (
+            instance.put(`/profile/photo`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(response => (response.data))
+        )
+    },
 }

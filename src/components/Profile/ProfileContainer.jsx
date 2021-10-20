@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import {
   getProfile,
   getStatus,
+  savePhoto,
   updateStatus,
 } from "../../redux/profile-reducer";
 import { withRouter } from "react-router";
@@ -40,6 +41,7 @@ class ProfileAPI extends React.Component {
         authId={this.props.authId}
         currentId={this.props.match.params.userId}
         updateStatus={this.props.updateStatus}
+        savePhoto={this.props.savePhoto}
       />
     );
   }
@@ -57,6 +59,7 @@ const ProfileContainer = compose(
     getProfile,
     getStatus,
     updateStatus,
+    savePhoto
   }),
   withRouter
 )(ProfileAPI);
