@@ -9,8 +9,9 @@ const ProfileStatusWithHooks = (props) => {
     setEditMode(true);
   };
   const deactivateEditMode = () => {
-    if (status !== props.status){
-    props.updateStatus(status)}
+    if (status !== props.status) {
+      props.updateStatus(status);
+    }
     setEditMode(false);
   };
   const onStatuschange = (e) => {
@@ -20,14 +21,21 @@ const ProfileStatusWithHooks = (props) => {
 
   useEffect(() => {
     setStatus(props.status);
-  },[props.status]);
-
+  }, [props.status]);
+  console.log(props.currentId, props.authId);
   return (
     <div className={s.status}>
       {!editMode ? (
-        <div className={s.status__show} onClick={activateEditMode}>
+        <div
+          className={s.status__show}
+          onClick={props.currentId == props.authId ? activateEditMode : null}
+        >
           {props.status || (
-            <div className={s.statusPlaseholder}>Change your status</div>
+            <div className={s.statusPlaseholder}>
+              {props.currentId == props.authId
+                ? "Change your status"
+                : "User status"}
+            </div>
           )}
         </div>
       ) : (

@@ -26,7 +26,7 @@ class ProfileAPI extends React.Component {
     this.refreshProfile();
   }
   componentDidUpdate(prevprops, prevstate, snapshot) {
-    if (this.props.match.params.userId != prevprops.match.params.userId) {
+    if (this.props.match.params.userId !== prevprops.match.params.userId) {
       this.refreshProfile();
     }
   }
@@ -37,6 +37,8 @@ class ProfileAPI extends React.Component {
         profile={this.props.profile}
         isAuth={this.props.isAuth}
         status={this.props.status}
+        authId={this.props.authId}
+        currentId={this.props.match.params.userId}
         updateStatus={this.props.updateStatus}
       />
     );
