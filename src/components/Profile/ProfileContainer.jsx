@@ -10,17 +10,27 @@ import { withRouter } from "react-router";
 import { compose } from "redux";
 
 class ProfileAPI extends React.Component {
-  componentDidMount() {
+  refreshProfile() {
     let id = this.props.match.params.userId;
     if (!id) {
       id = this.props.authId;
-      if (!id){
-        this.props.history.push("/login")
+      if (!id) {
+        this.props.history.push("/login");
       }
     }
     this.props.getProfile(id);
     this.props.getStatus(id);
   }
+
+  componentDidMount() {
+    this.refreshProfile();
+  }
+  componentDidUpdate(prevprops, prevstate, snapshot) {
+    if (this.props.match.params.userId != prevprops.match.params.userId) {
+      this.refreshProfile();
+    }
+  }
+
   render() {
     return (
       <Profile
@@ -37,7 +47,7 @@ let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authId: state.auth.id,
-  isAuth: state.auth.isAuth
+  isAuth: state.auth.isAuth,
 });
 
 const ProfileContainer = compose(
