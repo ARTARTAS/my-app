@@ -94,6 +94,7 @@ const Contact = ({ key, contactTitle, contactValue }) => {
         <b>{contactTitle}</b>:
         <Field
           component={Input}
+          placeholder={contactTitle}
           name={`contacts.${contactTitle}`}
           validate={[]}
         />

@@ -7,6 +7,8 @@ import ProfileStatusWithHooks from "./Status/StatusWithHooks";
 const ProfileInfo = (props) => {
   let isOwner = props.currentId == props.authId;
   const [editMode, setEditMode] = useState(false);
+  const [photoEditMode, setphotoEditMode] = useState(false);
+
   const onMainPhotoSelected = (e) => {
     console.log(e.target.files.length);
     if (e.target.files.length) {
@@ -18,12 +20,27 @@ const ProfileInfo = (props) => {
       setEditMode(false);
     });
   };
+
   if (!props.profile) {
     return <Preloader />;
   }
   return (
     <div className={s.infoBlock}>
-      <div className={s.avatar__arrea}>
+      <div
+        className={s.avatar__arrea}
+        onMouseEnter ={
+          isOwner &&
+          (() => {
+            setphotoEditMode(true);
+          })
+        }
+        onMouseLeave ={
+          isOwner &&
+          (() => {
+            setphotoEditMode(false);
+          })
+        }
+      >
         <img
           className={s.avatar}
           src={
@@ -33,7 +50,7 @@ const ProfileInfo = (props) => {
           }
           alt="avatar"
         />
-        {isOwner ? (
+        {photoEditMode ? (
           <input
             className={s.avatar__loader}
             type={"file"}

@@ -22,7 +22,7 @@
   padding: 3px;
   border: 1px solid lightgray;
   border-radius: 5px;
-  margin-top: 5px ;
+  margin-top: 5px;
 }
 
 .password {
@@ -30,13 +30,19 @@
   padding: 3px;
   border: 1px solid lightgray;
   border-radius: 5px;
-  margin-top: 5px ;
+  margin-top: 5px;
 }
-
+.captcha {
+  width: 100%;
+  padding: 3px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 5px;
+}
 .button {
   width: 100%;
   border: 1px solid gray;
   border-radius: 5px;
   padding: 3px;
-  margin-top: 5px ;
+  margin-top: 5px;
 }
