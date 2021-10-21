@@ -70,7 +70,7 @@ export const profileAPI = {
         let formData = new FormData();
         formData.append("image", photo)
         return (
-            instance.put(`/profile/photo`, photo, {
+            instance.put(`/profile/photo`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
