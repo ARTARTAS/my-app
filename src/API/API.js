@@ -70,11 +70,17 @@ export const profileAPI = {
         let formData = new FormData();
         formData.append("image", photo)
         return (
-            instance.put(`/profile/photo`, formData, {
+            instance.put(`/profile/photo`, photo, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             }).then(response => (response.data))
+        )
+    },
+    saveProfile(formData) {        
+        return (
+            instance.put(`/profile`, formData                
+            ).then(response => (response.data))
         )
     },
 }

@@ -1,0 +1,69 @@
+.field__arrea {
+  display: flex; 
+  width: 100%; 
+}
+
+.aboutMe {
+  padding: 3px;
+}
+
+.pData {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.fullName {
+  padding: 3px;
+}
+
+.lfj {
+  padding: 3px;
+  margin-top: 10px;
+}
+
+.lfjdescr {
+  height: 50px;
+  width: 100%;
+  resize: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+.contacts {
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.edit_area{
+  width: 100%;
+}
+
+.controls{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1px;
+  padding-left: 5px;
+}
+
+.editButtn {
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: white;
+  font-weight: 600;
+}
+
+.contact {
+  padding: 3px;
+  padding-left: 10px;
+}
