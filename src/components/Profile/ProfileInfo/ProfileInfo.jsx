@@ -20,7 +20,7 @@ const ProfileInfo = (props) => {
       setEditMode(false);
     });
   };
-
+  
   if (!props.profile) {
     return <Preloader />;
   }
