@@ -36,6 +36,7 @@ class App extends React.Component {
         <NavBarContainer />
         <div className='app-wrapper__content' >
           <Switch>
+            <Route exact path='/' render={withSuspense(ProfileContainer)} />
             <Route path='/login' render={withSuspense(Login)} />
             <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
             <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
