@@ -20,7 +20,7 @@ const ProfileInfo = (props) => {
       setEditMode(false);
     });
   };
-  
+
   if (!props.profile) {
     return <Preloader />;
   }
@@ -28,17 +28,19 @@ const ProfileInfo = (props) => {
     <div className={s.infoBlock}>
       <div
         className={s.avatar__arrea}
-        onMouseEnter ={
-          isOwner &&
-          (() => {
-            setphotoEditMode(true);
-          })
+        onMouseEnter={
+          isOwner
+            ? () => {
+                setphotoEditMode(true);
+              }
+            : undefined
         }
-        onMouseLeave ={
-          isOwner &&
-          (() => {
-            setphotoEditMode(false);
-          })
+        onMouseLeave={
+          isOwner
+            ? () => {
+                setphotoEditMode(false);
+              }
+            : undefined
         }
       >
         <img
@@ -103,7 +105,7 @@ const ProfileData = ({ profile, isOwner, setEditMode }) => {
             <Contact
               key={key}
               contactTitle={key}
-              contactValue={profile.contacts[key]}
+              contactValue={profile.contacts[key] ? profile.contacts[key] : null}
             />
           );
         })}
@@ -126,10 +128,10 @@ const ProfileData = ({ profile, isOwner, setEditMode }) => {
   );
 };
 
-export const Contact = ({ key, contactTitle, contactValue }) => {
+export const Contact = ({ Key, contactTitle, contactValue }) => {
   return (
     <div>
-      <div className={s.contact} key={key}>
+      <div className={s.contact} key={Key}>
         <b>{contactTitle}</b>: {contactValue}
       </div>
     </div>
