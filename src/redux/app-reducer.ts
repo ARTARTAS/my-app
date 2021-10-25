@@ -1,4 +1,3 @@
-import { type } from "os";
 import { getAuth } from "./auth-reducer";
 
 const SET_INITIALIZED = "SET-INITIALIZED";
