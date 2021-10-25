@@ -8,13 +8,26 @@ const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT";
 const TOGGLE_FETCHING = "TOGGLE_FETCHING";
 const TOGGLE_FOLLOW_REQUEST = "TOGGLE-FOLLOW-REQUEST";
 
+type PhotosType = {
+  small: string | null;
+  large: string | null;
+};
+
+type UsersType = {
+  id: number;
+  name: string;
+  status: string | null;
+  photos: PhotosType;
+  followed: boolean;
+};
+
 export type InitialStateType = {
-  users: any[];
+  users: Array<UsersType>;
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;
   isFetching: boolean;
-  followRequest: any[];
+  followRequest: Array<number>; //array of users id
 };
 
 let initialState: InitialStateType = {

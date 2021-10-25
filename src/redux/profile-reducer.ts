@@ -7,16 +7,38 @@ const SET_USER_STATUS = "SET-USER-STATUS";
 const DELETE_POST = "DELETE-POST";
 const SAVE_PHOTO = "SAVE-PHOTO";
 
-type InitialStatePostDataType = {
+type PostDataType = {
   id: number;
   message: string;
   likesCount: number;
 };
-
+type ProfileType = {
+  aboutMe: string | null;
+  contacts: ContactsType;
+  fullName: string | null;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string | null;
+  photos: PhotosType;
+  userId: number | null;
+};
+type ContactsType = {
+  facebook: string | null;
+  github: string | null;
+  instagram: string | null;
+  mainLink: string | null;
+  twitter: string | null;
+  vk: string | null;
+  website: string | null;
+  youtube: string | null;
+};
+type PhotosType = {
+  large: string | null;
+  small: string | null;
+};
 export type InitialStateType = {
-  PostData: Array<InitialStatePostDataType>;
+  PostData: Array<PostDataType>;
   newPostText: string | null;
-  profile: object | null;
+  profile: ProfileType | null;
   status: string | null;
 };
 
@@ -59,7 +81,7 @@ const profileReducer = (
     case SAVE_PHOTO:
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photos },
+        profile: { ...state.profile, photos: action.photos } as ProfileType,
       };
     case DELETE_POST:
       return {
@@ -122,41 +144,42 @@ export const savePhotoSucces = (photos: object): SavePhotoSuccesActionType => ({
   photos,
 });
 
-export const getProfile = (id:number) => async (dispatch:any) => {
+export const getProfile = (id: number) => async (dispatch: any) => {
   let response = await profileAPI.getProfile(id);
   dispatch(setUserProfile(response));
 };
 
-export const getStatus = (id:number) => async (dispatch:any) => {
+export const getStatus = (id: number) => async (dispatch: any) => {
   let response = await profileAPI.getStatus(id);
   dispatch(setUserStatus(response));
 };
 
-export const updateStatus = (text:string) => async (dispatch:any) => {
-  let response:any = await profileAPI.updateStatus(text);
+export const updateStatus = (text: string) => async (dispatch: any) => {
+  let response: any = await profileAPI.updateStatus(text);
   if (response.resultCode === 0) {
     dispatch(setUserStatus(text));
   }
 };
-export const savePhoto = (photo:object) => async (dispatch:any) => {
-  let response:any = await profileAPI.savePhoto(photo);
+export const savePhoto = (photo: object) => async (dispatch: any) => {
+  let response: any = await profileAPI.savePhoto(photo);
   if (response.resultCode === 0) {
     dispatch(savePhotoSucces(response.data.photos));
   }
 };
-export const saveProfile = (formData:object) => async (dispatch:any, getState:any) => {
-  const id = getState().auth.id;
-  let response = await profileAPI.saveProfile(formData);
-  if (response.resultCode === 0) {
-    dispatch(getProfile(id));
-  } else {
-    console.log(response.messages[0]);
-    let message =
-      response.messages.length > 0 ? response.messages[0] : "Some error";
-    let action = stopSubmit("ProfileData", { _error: message });
-    dispatch(action);
-    return Promise.reject(response.messages[0]);
-  }
-};
+export const saveProfile =
+  (formData: object) => async (dispatch: any, getState: any) => {
+    const id = getState().auth.id;
+    let response = await profileAPI.saveProfile(formData);
+    if (response.resultCode === 0) {
+      dispatch(getProfile(id));
+    } else {
+      console.log(response.messages[0]);
+      let message =
+        response.messages.length > 0 ? response.messages[0] : "Some error";
+      let action = stopSubmit("ProfileData", { _error: message });
+      dispatch(action);
+      return Promise.reject(response.messages[0]);
+    }
+  };
 
 export default profileReducer;
