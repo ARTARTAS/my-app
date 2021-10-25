@@ -62,6 +62,7 @@ type GetCaptchaUrlSuccessActionType = {
   type: typeof GET_CAPTCHA_URL_SUCCESS;
   payload: { captchaUrl: string | null };
 };
+
 export const getCaptchaUrlSuccess = (
   captchaUrl: string | null
 ): GetCaptchaUrlSuccessActionType => ({
