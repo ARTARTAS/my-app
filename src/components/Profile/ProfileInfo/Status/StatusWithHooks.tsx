@@ -10,14 +10,14 @@ type Props = {
 
 const ProfileStatusWithHooks: React.FC<Props> = ({ status, updateStatus, authId, currentId }) => {
   let [editMode, setEditMode] = useState<boolean>(false);
-  let [Status, setStatus] = useState<string>(status);
+  let [localStatus, setStatus] = useState<string>(status);
 
   const activateEditMode = () => {
     setEditMode(true);
   };
   const deactivateEditMode = () => {
-    if (Status !== status) {
-      updateStatus(status);
+    if (localStatus !== status) {
+      updateStatus(localStatus);
     }
     setEditMode(false);
   };
@@ -51,7 +51,7 @@ const ProfileStatusWithHooks: React.FC<Props> = ({ status, updateStatus, authId,
           autoFocus
           onChange={onStatuschange}
           onBlur={deactivateEditMode}
-          value={status}
+          value={localStatus}
         />
       )}
     </div>
