@@ -1,7 +1,16 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import s from "./Status.module.css";
 
-class ProfileStatus extends React.Component {
+type PropsType = {
+  status: string
+  updateStatus: (status: string) => void
+}
+type StateType = {
+  editMode: boolean
+  status: string
+}
+
+class ProfileStatus extends React.Component<PropsType, StateType> {
   state = {
     editMode: false,
     status: this.props.status,
@@ -11,11 +20,11 @@ class ProfileStatus extends React.Component {
       editMode: true,
     });
   };
-  onStatuschange = (e) => {
+  onStatuschange = (e: ChangeEvent<HTMLInputElement>) => {
     let text = e.currentTarget.value;
     this.setState({
       status: text,
-    });    
+    });
   };
   deactivateEditMode = () => {
     this.props.updateStatus(this.state.status);
@@ -23,7 +32,7 @@ class ProfileStatus extends React.Component {
       editMode: false,
     });
   };
-  componentDidUpdate(prevProps, prevState) {    
+  componentDidUpdate(prevProps:PropsType, prevState:StateType) {
     if (prevProps.status !== this.props.status) {
       this.setState({
         status: this.props.status,

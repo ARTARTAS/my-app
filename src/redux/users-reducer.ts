@@ -13,7 +13,7 @@ type PhotosType = {
   large: string | null;
 };
 
-type UsersType = {
+export type UsersType = {
   id: number;
   name: string;
   status: string | null;

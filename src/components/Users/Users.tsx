@@ -1,19 +1,33 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Paginator from "./Paginator/Paginator";
+import { UsersType } from "../../redux/users-reducer";
+import Paginator from "../Common/Paginator/Paginator";
 import s from "./Users.module.css";
 
-const Users = (props) => {
+type Props = {
+  totalUsersCount: number
+  pageSize: number
+  currentPage: number
+  onPageChanged: (pageNumber: number) => void
+  portionSize?: number
+  users: Array<UsersType>
+  followRequest: Array<number>
+  unFollow: (id: number) => void
+  follow: (id: number) => void
+}
+
+const Users: React.FC<Props> = ({ totalUsersCount, pageSize, currentPage, onPageChanged, portionSize, users, followRequest, unFollow, follow }) => {
   return (
-    <div>  
+    <div>
       <Paginator
-        pageSize={props.pageSize}
-        totalItemCount={props.totalUsersCount}
-        currentPage={props.currentPage}
-        onPageChanged={props.onPageChanged}
-      />    
+        pageSize={pageSize}
+        totalItemCount={totalUsersCount}
+        currentPage={currentPage}
+        onPageChanged={onPageChanged}
+        portionSize={portionSize}
+      />
       <div>
-        {props.users.map((u) => (
+        {users.map((u) => (
           <div className={s.userArea} key={u.id}>
             <div>
               <div>
@@ -32,20 +46,20 @@ const Users = (props) => {
               <div>
                 {u.followed ? (
                   <button
-                    disabled={props.followRequest.some((id) => id === u.id)}
+                    disabled={followRequest.some((id) => id === u.id)}
                     className={s.followButton}
                     onClick={() => {
-                      props.unFollow(u.id);
+                      unFollow(u.id);
                     }}
                   >
                     Unfollow
                   </button>
                 ) : (
                   <button
-                    disabled={props.followRequest.some((id) => id === u.id)}
+                    disabled={followRequest.some((id) => id === u.id)}
                     className={s.unfollowButton}
                     onClick={() => {
-                      props.follow(u.id);
+                      follow(u.id);
                     }}
                   >
                     Follow
@@ -71,7 +85,7 @@ const Users = (props) => {
             </div>
           </div>
         ))}
-      </div>      
+      </div>
     </div>
   );
 };
