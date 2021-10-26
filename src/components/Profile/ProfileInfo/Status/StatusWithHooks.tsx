@@ -1,37 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import s from "./Status.module.css";
 
-const ProfileStatusWithHooks = (props) => {
-  let [editMode, setEditMode] = useState(false);
-  let [status, setStatus] = useState(props.status);
+type Props = {
+  status: string
+  authId: number
+  currentId: number
+  updateStatus: (status: string)=>void
+}
+
+const ProfileStatusWithHooks: React.FC<Props> = ({ status, updateStatus, authId, currentId }) => {
+  let [editMode, setEditMode] = useState<boolean>(false);
+  let [Status, setStatus] = useState<string>(status);
 
   const activateEditMode = () => {
     setEditMode(true);
   };
   const deactivateEditMode = () => {
-    if (status !== props.status) {
-      props.updateStatus(status);
+    if (Status !== status) {
+      updateStatus(status);
     }
     setEditMode(false);
   };
-  const onStatuschange = (e) => {
+  const onStatuschange = (e: ChangeEvent<HTMLInputElement>) => {
     let text = e.currentTarget.value;
     setStatus(text);
   };
 
   useEffect(() => {
-    setStatus(props.status);
-  }, [props.status]);
+    setStatus(status);
+  }, [status]);
+
   return (
     <div className={s.status}>
       {!editMode ? (
         <div
           className={s.status__show}
-          onClick={props.currentId == props.authId ? activateEditMode : null}
+          onClick={currentId == authId ? activateEditMode : undefined}
         >
-          {props.status || (
+          {status || (
             <div className={s.statusPlaseholder}>
-              {props.currentId == props.authId
+              {currentId == authId
                 ? "Change your status"
                 : "User status"}
             </div>
