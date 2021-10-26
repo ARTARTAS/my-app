@@ -1,4 +1,7 @@
+import { AppStateType } from "./redux-store";
 import { usersAPI } from "../API/API";
+import { Dispatch } from "react";
+import { ThunkAction } from "redux-thunk";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -39,7 +42,10 @@ let initialState: InitialStateType = {
   followRequest: [],
 };
 
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+const usersReducer = (
+  state = initialState,
+  action: ActionTypes
+): InitialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -93,6 +99,15 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
   }
 };
 
+type ActionTypes =
+  | FollowUserActionType
+  | UnfollowUserActionType
+  | SetUsersActionType
+  | SetCurrentPageActionType
+  | SetTotalUsersCountActionType
+  | SetFetchingActionType
+  | SetFollowRequestActionType;
+
 type FollowUserActionType = {
   type: typeof FOLLOW;
   userId: number;
@@ -101,7 +116,6 @@ export const followUser = (userId: number): FollowUserActionType => ({
   type: FOLLOW,
   userId,
 });
-
 type UnfollowUserActionType = {
   type: typeof UNFOLLOW;
   userId: number;
@@ -110,7 +124,6 @@ export const unfollowUser = (userId: number): UnfollowUserActionType => ({
   type: UNFOLLOW,
   userId,
 });
-
 type SetUsersActionType = {
   type: typeof SET_USERS;
   users: [];
@@ -119,7 +132,6 @@ export const setUsers = (users: []): SetUsersActionType => ({
   type: SET_USERS,
   users,
 });
-
 type SetCurrentPageActionType = {
   type: typeof SET_CURRENT_PAGE;
   currentPage: number;
@@ -130,7 +142,6 @@ export const setCurrentPage = (
   type: SET_CURRENT_PAGE,
   currentPage,
 });
-
 type SetTotalUsersCountActionType = {
   type: typeof SET_TOTAL_USERS_COUNT;
   totalUsersCount: number;
@@ -141,7 +152,6 @@ export const setTotalUsersCount = (
   type: SET_TOTAL_USERS_COUNT,
   totalUsersCount,
 });
-
 type SetFetchingActionType = {
   type: typeof TOGGLE_FETCHING;
   isFetching: boolean;
@@ -150,7 +160,6 @@ export const setFetching = (isFetching: boolean): SetFetchingActionType => ({
   type: TOGGLE_FETCHING,
   isFetching,
 });
-
 type SetFollowRequestActionType = {
   type: typeof TOGGLE_FOLLOW_REQUEST;
   followRequest: any;
@@ -166,7 +175,11 @@ export const setFollowRequest = (
 });
 
 export const requestUsers =
-  (page: number, pageSize: number) => async (dispatch: any) => {
+  (
+    page: number,
+    pageSize: number
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> =>
+  async (dispatch) => {
     dispatch(setFetching(true));
     let response: any = await usersAPI.getUsers(page, pageSize);
     dispatch(setFetching(false));
@@ -174,24 +187,30 @@ export const requestUsers =
     dispatch(setTotalUsersCount(response.totalCount));
     dispatch(setCurrentPage(page));
   };
+export const follow =
+  (
+    id: number
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> =>
+  async (dispatch) => {
+    dispatch(setFollowRequest(true, id));
+    let response: any = await usersAPI.follow(id);
 
-export const follow = (id: number) => async (dispatch: any) => {
-  dispatch(setFollowRequest(true, id));
-  let response: any = await usersAPI.follow(id);
-
-  if (response.resultCode === 0) {
-    dispatch(followUser(id));
-  }
-  dispatch(setFollowRequest(false, id));
-};
-
-export const unFollow = (id: number) => async (dispatch: any) => {
-  dispatch(setFollowRequest(true, id));
-  let response: any = await usersAPI.unFollow(id);
-  if (response.resultCode === 0) {
-    dispatch(unfollowUser(id));
-  }
-  dispatch(setFollowRequest(false, id));
-};
+    if (response.resultCode === 0) {
+      dispatch(followUser(id));
+    }
+    dispatch(setFollowRequest(false, id));
+  };
+export const unFollow =
+  (
+    id: number
+  ): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> =>
+  async (dispatch) => {
+    dispatch(setFollowRequest(true, id));
+    let response: any = await usersAPI.unFollow(id);
+    if (response.resultCode === 0) {
+      dispatch(unfollowUser(id));
+    }
+    dispatch(setFollowRequest(false, id));
+  };
 
 export default usersReducer;

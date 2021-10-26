@@ -2,13 +2,8 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import s from "./ProfileDataForm.module.css";
 import { Input, Textarea } from "../../../Common/Formcontrols/FormControls";
-import {
-  maxLenghtCreator,
-  required,
-} from "../../../../Utils/Validators/Validators";
+import { required } from "../../../../Utils/Validators/Validators";
 import style from "../../../Common/Formcontrols/FormControl.module.css";
-
-let maxLength16 = maxLenghtCreator(16);
 
 const ProfileDataForm = ({ profile, handleSubmit, setEditMode, error }) => {
   return (

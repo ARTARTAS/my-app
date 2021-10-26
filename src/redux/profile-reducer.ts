@@ -12,7 +12,7 @@ type PostDataType = {
   message: string;
   likesCount: number;
 };
-type ProfileType = {
+export type ProfileType = {
   aboutMe: string | null;
   contacts: ContactsType;
   fullName: string | null;
@@ -31,10 +31,11 @@ type ContactsType = {
   website: string | null;
   youtube: string | null;
 };
-type PhotosType = {
+export type PhotosType = {
   large: string | null;
   small: string | null;
 };
+
 export type InitialStateType = {
   PostData: Array<PostDataType>;
   newPostText: string | null;
