@@ -155,15 +155,15 @@ export const updateStatus = (text: string): ThunkAction<Promise<void>, AppStateT
     dispatch(setUserStatus(text));
   }
 };
-export const savePhoto = (photo: object): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
+export const savePhoto = (photo: any): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
   let response: any = await profileAPI.savePhoto(photo);
   if (response.resultCode === 0) {
     dispatch(savePhotoSucces(response.data.photos));
   }
 };
-export const saveProfile = (formData: object): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch, getState:any) => {
+export const saveProfile = (formData: ProfileType): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch, getState:any) => {
   const id = getState().auth.id;
-  let response = await profileAPI.saveProfile(formData);
+  let response:any = await profileAPI.saveProfile(formData);
   if (response.resultCode === 0) {
     dispatch(getProfile(id));
   } else {

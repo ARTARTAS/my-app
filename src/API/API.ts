@@ -1,4 +1,6 @@
-import axios from "axios";
+import { login } from './../redux/auth-reducer';
+import axios, { AxiosResponse } from "axios";
+import { ProfileType } from "../redux/profile-reducer";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -9,65 +11,84 @@ const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
+    getUsers(currentPage: number = 1, pageSize: number = 10) {
         return (
             instance.get(`users?page=${currentPage}&count=${pageSize}`)
         ).then(response => response.data);
     },
-    follow(id) {
+    follow(id: number) {
         return (
             instance.post(`follow/${id}`)
         ).then(response => response.data);
     },
-    unFollow(id) {
+    unFollow(id: number) {
         return (
             instance.delete(`follow/${id}`)
         ).then(response => response.data);
     }
 }
 
+export enum AuthResultCodeEnum {
+    "OK" = 0,
+    "Request is invalid" = 1,
+    "Captcha is required" = 10
+}
+type getAuthMeResponseType = {
+    data: { id: number, email: string, login: string }
+    resultCode: AuthResultCodeEnum
+    messages: Array<string>
+}
+type LoginResponseType = {
+    data: {
+        userId: number
+    }
+    resultCode: AuthResultCodeEnum
+    messages: Array<string>
+}
+type LogoutResponseType = {
+    data: {}
+    resultCode: AuthResultCodeEnum
+    messages: Array<string>
+}
+type LoginMeDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string | null
+}
 export const authAPI = {
     getAuthMe() {
         return (
-            instance.get(`auth/me`)
+            instance.get<getAuthMeResponseType>(`auth/me`)
         ).then(response => response.data);
     },
-    login(email, password, rememberMe = false,captcha) {
-        let body = {
-            email: email,
-            password: password,
-            rememberMe: rememberMe,
-            captcha: captcha
-        }
-        return (
-            instance.post(`auth/login`, body)
-        ).then(response => response.data);
+    login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
+        return instance.post<LoginMeDataType, LoginResponseType>(`auth/login`, { email, password, rememberMe, captcha })
     },
     logout() {
         return (
-            instance.delete(`auth/login`)
+            instance.delete<LogoutResponseType>(`auth/login`)
         ).then(response => response.data);
-    },
-    
+    }
 }
 
 export const profileAPI = {
-    getProfile(id) {
+    getProfile(id: number) {
         return (
             instance.get(`profile/${id}`)
         ).then(response => response.data);
     },
-    getStatus(id) {
+    getStatus(id: number) {
         return (
             instance.get(`profile/status/${id}`)
         ).then(response => response.data);
     },
-    updateStatus(text) {
+    updateStatus(text: string) {
         return (
             instance.put(`profile/status`, { status: text }).then(response => (response.data))
         )
     },
-    savePhoto(photo) {
+    savePhoto(photo: Blob) {
         let formData = new FormData();
         formData.append("image", photo)
         return (
@@ -78,9 +99,9 @@ export const profileAPI = {
             }).then(response => (response.data))
         )
     },
-    saveProfile(formData) {        
+    saveProfile(formData: ProfileType) {
         return (
-            instance.put(`/profile`, formData                
+            instance.put(`/profile`, formData
             ).then(response => (response.data))
         )
     },
@@ -92,5 +113,5 @@ export const securityAPI = {
             instance.get(`security/get-captcha-url`)
         ).then(response => response.data);
     },
-    
+
 }

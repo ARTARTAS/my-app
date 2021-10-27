@@ -9,8 +9,7 @@ const ProfileInfo = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [photoEditMode, setphotoEditMode] = useState(false);
 
-  const onMainPhotoSelected = (e) => {
-    console.log(e.target.files.length);
+  const onMainPhotoSelected = (e) => {    
     if (e.target.files.length) {
       props.savePhoto(e.target.files[0]);
     }
