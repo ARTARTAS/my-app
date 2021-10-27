@@ -28,27 +28,34 @@ export const usersAPI = {
     }
 }
 
-export enum AuthResultCodeEnum {
+export enum ResultCodeEnum {
     "OK" = 0,
     "Request is invalid" = 1,
+}
+export enum ResultCodeForCaptchaEnum {
     "Captcha is required" = 10
 }
+
 type getAuthMeResponseType = {
     data: { id: number, email: string, login: string }
-    resultCode: AuthResultCodeEnum
+    resultCode: ResultCodeEnum
     messages: Array<string>
 }
 type LoginResponseType = {
     data: {
-        userId: number
+        data: {
+            userId: number
+        }
+        resultCode: ResultCodeEnum | ResultCodeForCaptchaEnum
+        messages: Array<string>
     }
-    resultCode: AuthResultCodeEnum
-    messages: Array<string>
+
 }
 type LogoutResponseType = {
     data: {}
-    resultCode: AuthResultCodeEnum
+    resultCode: ResultCodeEnum
     messages: Array<string>
+    fieldsErrors: Array<string>
 }
 type LoginMeDataType = {
     email: string
@@ -63,7 +70,7 @@ export const authAPI = {
         ).then(response => response.data);
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
-        return instance.post<LoginMeDataType, LoginResponseType>(`auth/login`, { email, password, rememberMe, captcha })
+        return instance.post<LoginMeDataType, LoginResponseType>(`auth/login`, { email, password, rememberMe, captcha }).then(response => response.data)
     },
     logout() {
         return (
