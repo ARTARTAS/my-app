@@ -12,7 +12,6 @@ export type InitialStateType = {
   dialogData: Array<InitialStateDialogDataType>;
   messagesData: Array<InitialStateMessagesDataType>;
 };
-
 let initialState: InitialStateType = {
   dialogData: [
     { id: 1, name: "Vasya" },
@@ -53,10 +52,7 @@ type SendMessageCreatorActionType = {
   type: typeof SEND_MESSAGE;
   newMessageText: string;
 };
-
-export const sendMessageCreator = (
-  newMessageText: string
-): SendMessageCreatorActionType => ({
+export const sendMessageCreator = (newMessageText: string): SendMessageCreatorActionType => ({
   type: SEND_MESSAGE,
   newMessageText,
 });
