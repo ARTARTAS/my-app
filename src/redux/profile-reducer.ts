@@ -99,43 +99,16 @@ type ActionTypes =
   | DeletePostActionType
   | SavePhotoSuccesActionType
 
-type AddPostActionCreatorType = {
-  type: typeof ADD_POST;
-  newPostText: string;
-};
-export const addPostActionCreator = (newPostText: string): AddPostActionCreatorType => ({
-  type: ADD_POST,
-  newPostText,
-});
-type SetUserProfileActionType = {
-  type: typeof SET_USER_PROFILE;
-  profile: object | null;
-};
-export const setUserProfile = (profile: object | null): SetUserProfileActionType => ({
-  type: SET_USER_PROFILE,
-  profile,
-});
-type SetUserStatusActionType = {
-  type: typeof SET_USER_STATUS;
-  text: string | null;
-};
+type AddPostActionCreatorType = { type: typeof ADD_POST; newPostText: string };
+export const addPostActionCreator = (newPostText: string): AddPostActionCreatorType => ({ type: ADD_POST, newPostText });
+type SetUserProfileActionType = { type: typeof SET_USER_PROFILE; profile: object | null };
+export const setUserProfile = (profile: object | null): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile });
+type SetUserStatusActionType = { type: typeof SET_USER_STATUS; text: string | null };
 export const setUserStatus = (text: string | null): SetUserStatusActionType => ({ type: SET_USER_STATUS, text });
-type DeletePostActionType = {
-  type: typeof DELETE_POST;
-  id: number;
-};
-export const deletePost = (id: number): DeletePostActionType => ({
-  type: DELETE_POST,
-  id,
-});
-type SavePhotoSuccesActionType = {
-  type: typeof SAVE_PHOTO;
-  photos: object;
-};
-export const savePhotoSucces = (photos: object): SavePhotoSuccesActionType => ({
-  type: SAVE_PHOTO,
-  photos,
-});
+type DeletePostActionType = { type: typeof DELETE_POST; id: number };
+export const deletePost = (id: number): DeletePostActionType => ({ type: DELETE_POST, id });
+type SavePhotoSuccesActionType = { type: typeof SAVE_PHOTO; photos: object };
+export const savePhotoSucces = (photos: object): SavePhotoSuccesActionType => ({ type: SAVE_PHOTO, photos });
 
 export const getProfile = (id: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
   let response = await profileAPI.getProfile(id);
