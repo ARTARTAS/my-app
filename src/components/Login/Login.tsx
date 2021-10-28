@@ -7,7 +7,6 @@ import { maxLenghtCreator, required } from "../../Utils/Validators/Validators";
 import { Input } from "../Common/Formcontrols/FormControls";
 import s from "./Login.module.css";
 import style from "./../Common/Formcontrols/FormControl.module.css";
-import { type } from "os";
 import { AppStateType } from "../../redux/redux-store";
 
 let maxLength16 = maxLenghtCreator(16);
@@ -53,15 +52,9 @@ export const LoginForm: React.FC<InjectedFormProps<LoginformValuesType, Loginfor
           validate={[required]}
         />
       </div>
-
       }
-
-      {error && (
-        <div className={style.formSummaryError}>{error}</div>
-      )}
-      <button onClick={handleSubmit} className={s.button}>
-        Login
-      </button>
+      {error && (<div className={style.formSummaryError}>{error}</div>)}
+      <button className={s.button} onClick={handleSubmit} >Login</button>
     </form>
   );
 };

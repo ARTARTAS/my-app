@@ -37,13 +37,13 @@ export type PhotosType = {
   large: string;
   small: string;
 };
-
 export type InitialStateType = {
   PostData: Array<PostDataType>;
   newPostText: string;
   profile: ProfileType | null;
-  status: string;
+  status: string | null;
 };
+
 let initialState: InitialStateType = {
   PostData: [
     { id: 1, message: "hi", likesCount: 5 },
@@ -54,10 +54,7 @@ let initialState: InitialStateType = {
   status: "",
 };
 
-const profileReducer = (
-  state = initialState,
-  action: any
-): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
     case ADD_POST:
       let newPost = {
@@ -73,7 +70,7 @@ const profileReducer = (
     case SET_USER_PROFILE:
       return {
         ...state,
-        profile: { ...action.profile },
+        profile: { ...action.profile } as ProfileType,
       };
     case SET_USER_STATUS:
       return {
@@ -101,7 +98,6 @@ type ActionTypes =
   | SetUserStatusActionType
   | DeletePostActionType
   | SavePhotoSuccesActionType
-  | FormAction
 
 type AddPostActionCreatorType = {
   type: typeof ADD_POST;
@@ -161,9 +157,9 @@ export const savePhoto = (photo: any): ThunkAction<Promise<void>, AppStateType, 
     dispatch(savePhotoSucces(response.data.photos));
   }
 };
-export const saveProfile = (formData: ProfileType): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch, getState:any) => {
+export const saveProfile = (formData: ProfileType): ThunkAction<Promise<void>, AppStateType, unknown, FormAction> => async (dispatch, getState: any) => {
   const id = getState().auth.id;
-  let response:any = await profileAPI.saveProfile(formData);
+  let response: any = await profileAPI.saveProfile(formData);
   if (response.resultCode === 0) {
     dispatch(getProfile(id));
   } else {

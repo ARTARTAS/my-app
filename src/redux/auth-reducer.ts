@@ -22,7 +22,7 @@ let initialState: InitialStateType = {
   captchaUrl: null,
 };
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
     case SET_USER_DATA: {
       return {

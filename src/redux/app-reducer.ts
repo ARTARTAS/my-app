@@ -14,7 +14,7 @@ let initialState: InitialStateType = {
 
 type ActionTypes = InitializationActionType
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
+const appReducer = (state = initialState, action: InitializationActionType): InitialStateType => {
   switch (action.type) {
     case SET_INITIALIZED: {
       return {
