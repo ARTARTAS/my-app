@@ -82,7 +82,7 @@ const ProfileDataReduxForm = reduxForm({
   form: "ProfileData",
 })(ProfileDataForm);
 
-const Contact = ({ key, contactTitle, contactValue }) => {
+const Contact = ({ contactTitle }) => {
   return (
     <div>
       <div className={s.contact} key={contactTitle}>

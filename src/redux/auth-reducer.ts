@@ -75,12 +75,12 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
       }
       let message = response.messages.length > 0 ? response.messages[0] : "Some error";
       let action = stopSubmit("Login", { _error: message });
-      dispatch(action);
+      dispatch(action); 
     }
   };
 export const getCaptchaURL = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
   debugger;
-  const response: any = await securityAPI.getCaptcha();
+  const response = await securityAPI.getCaptcha();
   const captchaUrl = response.url;
   dispatch(actions.getCaptchaUrlSuccess(captchaUrl));
 };

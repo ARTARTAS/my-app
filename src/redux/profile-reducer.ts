@@ -15,7 +15,7 @@ export type ProfileType = {
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   photos: PhotosType;
-  userId: number;
+  userId: number;  
 };
 type ContactsType = {
   facebook: string;
@@ -35,7 +35,7 @@ export type InitialStateType = {
   PostData: Array<PostDataType>;
   newPostText: string;
   profile: ProfileType | null;
-  status: string | null;
+  status: string;
 };
 
 let initialState: InitialStateType = {
@@ -91,17 +91,17 @@ type ActionTypes = InferActionsTypes<typeof actions>
 export const actions = {
   addPostActionCreator: (newPostText: string) => ({ type: 'ADD_POST', newPostText } as const),
   setUserProfile: (profile: object | null) => ({ type: 'SET_USER_PROFILE', profile } as const),
-  setUserStatus: (text: string | null) => ({ type: 'SET_USER_STATUS', text } as const),
+  setUserStatus: (text: string ) => ({ type: 'SET_USER_STATUS', text } as const),
   deletePost: (id: number) => ({ type: 'DELETE_POST', id } as const),
   savePhotoSucces: (photos: object) => ({ type: 'SAVE_PHOTO', photos } as const)
 }
 
 export const getProfile = (id: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
-  let response = await profileAPI.getProfile(id);
-  dispatch(actions.setUserProfile(response));
+  let response = await profileAPI.getProfile(id);  
+  dispatch(actions.setUserProfile(response));  
 };
 export const getStatus = (id: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
-  let response = await profileAPI.getStatus(id);
+  let response = await profileAPI.getStatus(id);  
   dispatch(actions.setUserStatus(response));
 };
 export const updateStatus = (text: string): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {

@@ -1,5 +1,4 @@
-import { login } from './../redux/auth-reducer';
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { ProfileType } from "../redux/profile-reducer";
 
 const instance = axios.create({
@@ -10,20 +9,42 @@ const instance = axios.create({
     }
 })
 
+type getUsersResponseType = {
+    items: [
+        {
+            name: string,
+            id: number,
+            photos: {
+                small: string | null,
+                large: string | null
+            },
+            status: string | null,
+            followed: boolean
+        }
+    ],
+    totalCount: number,
+    error: string | null
+}
+type followUnfollowResponseType = {
+    resultCode: number
+    messages: [string],
+    data: {}
+}
+
 export const usersAPI = {
     getUsers(currentPage: number = 1, pageSize: number = 10) {
         return (
-            instance.get(`users?page=${currentPage}&count=${pageSize}`)
+            instance.get<getUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
         ).then(response => response.data);
     },
     follow(id: number) {
         return (
-            instance.post(`follow/${id}`)
+            instance.post<followUnfollowResponseType>(`follow/${id}`)
         ).then(response => response.data);
     },
     unFollow(id: number) {
         return (
-            instance.delete(`follow/${id}`)
+            instance.delete<followUnfollowResponseType>(`follow/${id}`)
         ).then(response => response.data);
     }
 }
@@ -79,16 +100,35 @@ export const authAPI = {
     }
 }
 
+export type getProfileResponseType = {
+    aboutMe: string,
+    contacts: {
+        skype: string,
+        vk: string,
+        facebook: string,
+        icq: string,
+        email: string,
+        googlePlus: string,
+        twitter: string,
+        instagram: string,
+        whatsApp: string
+    },
+    lookingForAJob: true,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number
+}
+
 export const profileAPI = {
     getProfile(id: number) {
         return (
-            instance.get(`profile/${id}`)
-        ).then(response => response.data);
+            instance.get<getProfileResponseType>(`profile/${id}`).then(response => response.data)
+        );
     },
     getStatus(id: number) {
         return (
-            instance.get(`profile/status/${id}`)
-        ).then(response => response.data);
+            instance.get<string>(`profile/status/${id}`)
+        ).then(response => response.data)
     },
     updateStatus(text: string) {
         return (
@@ -114,10 +154,13 @@ export const profileAPI = {
     },
 }
 
+type getCaptchaResponseType = {
+    url: string
+}
 export const securityAPI = {
     getCaptcha() {
         return (
-            instance.get(`security/get-captcha-url`)
+            instance.get<getCaptchaResponseType>(`security/get-captcha-url`)
         ).then(response => response.data);
     },
 

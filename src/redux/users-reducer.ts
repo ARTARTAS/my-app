@@ -1,5 +1,5 @@
 import { AppStateType, InferActionsTypes } from "./redux-store";
-import { usersAPI } from "../API/API";
+import { ResultCodeEnum, usersAPI } from "../API/API";
 import { ThunkAction } from "redux-thunk";
 
 type PhotosType = {
@@ -90,7 +90,7 @@ type ActionTypes = InferActionsTypes<typeof actions>
 export const actions = {
   followUser: (userId: number) => ({ type: 'FOLLOW', userId, } as const),
   unfollowUser: (userId: number) => ({ type: 'UNFOLLOW', userId, } as const),
-  setUsers: (users: []) => ({ type: 'SET_USERS', users, } as const),
+  setUsers: (users: Array<UsersType>) => ({ type: 'SET_USERS', users, } as const),
   setCurrentPage: (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage, } as const),
   setTotalUsersCount: (totalUsersCount: number) => ({ type: 'SET_TOTAL_USERS_COUNT', totalUsersCount, } as const),
   setFetching: (isFetching: boolean) => ({ type: 'TOGGLE_FETCHING', isFetching, } as const),
@@ -100,7 +100,7 @@ export const actions = {
 export const requestUsers = (page: number, pageSize: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> =>
   async (dispatch) => {
     dispatch(actions.setFetching(true));
-    let response: any = await usersAPI.getUsers(page, pageSize);
+    let response = await usersAPI.getUsers(page, pageSize);
     dispatch(actions.setFetching(false));
     dispatch(actions.setUsers(response.items));
     dispatch(actions.setTotalUsersCount(response.totalCount));
@@ -109,9 +109,9 @@ export const requestUsers = (page: number, pageSize: number): ThunkAction<Promis
 export const follow = (id: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> =>
   async (dispatch) => {
     dispatch(actions.setFollowRequest(true, id));
-    let response: any = await usersAPI.follow(id);
+    let response = await usersAPI.follow(id);
 
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodeEnum.OK) {
       dispatch(actions.followUser(id));
     }
     dispatch(actions.setFollowRequest(false, id));
@@ -119,8 +119,8 @@ export const follow = (id: number): ThunkAction<Promise<void>, AppStateType, unk
 export const unFollow = (id: number): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> =>
   async (dispatch) => {
     dispatch(actions.setFollowRequest(true, id));
-    let response: any = await usersAPI.unFollow(id);
-    if (response.resultCode === 0) {
+    let response = await usersAPI.unFollow(id);
+    if (response.resultCode === ResultCodeEnum.OK) {
       dispatch(actions.unfollowUser(id));
     }
     dispatch(actions.setFollowRequest(false, id));
