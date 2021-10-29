@@ -1,29 +1,10 @@
 import { ProfileType } from "../redux/profile-reducer";
 import { instance } from './API';
 
-export type getProfileResponseType = {
-    aboutMe: string,
-    contacts: {
-        skype: string,
-        vk: string,
-        facebook: string,
-        icq: string,
-        email: string,
-        googlePlus: string,
-        twitter: string,
-        instagram: string,
-        whatsApp: string
-    },
-    lookingForAJob: true,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number
-}
-
 export const profileAPI = {
     getProfile(id: number) {
         return (
-            instance.get<getProfileResponseType>(`profile/${id}`).then(response => response.data)
+            instance.get<ProfileType>(`profile/${id}`).then(response => response.data)
         );
     },
     getStatus(id: number) {

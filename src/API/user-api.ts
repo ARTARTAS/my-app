@@ -1,15 +1,10 @@
 import { UsersType } from './../redux/users-reducer';
-import { instance } from './API';
+import { instance, ResponseType } from './API';
 
 type getUsersResponseType = {
     items: Array<UsersType>,
     totalCount: number,
     error: string | null
-}
-type followUnfollowResponseType = {
-    resultCode: number
-    messages: [string],
-    data: {}
 }
 
 export const usersAPI = {
@@ -20,12 +15,12 @@ export const usersAPI = {
     },
     follow(id: number) {
         return (
-            instance.post<followUnfollowResponseType>(`follow/${id}`)
+            instance.post<ResponseType>(`follow/${id}`)
         ).then(response => response.data);
     },
     unFollow(id: number) {
         return (
-            instance.delete<followUnfollowResponseType>(`follow/${id}`)
+            instance.delete<ResponseType>(`follow/${id}`)
         ).then(response => response.data);
     }
 }

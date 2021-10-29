@@ -8,6 +8,12 @@ export const instance = axios.create({
     }
 })
 
+export type ResponseType<D = {}, RC = ResultCodeEnum> = {
+    data: D
+    messages: Array<string>
+    resultCode: RC
+}
+
 export enum ResultCodeEnum {
     "OK" = 0,
     "Request is invalid" = 1,

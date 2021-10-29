@@ -4,7 +4,7 @@ import s from "./ProfileDataForm.module.css";
 import { Input, Textarea } from "../../../Common/Formcontrols/FormControls";
 import { required } from "../../../../Utils/Validators/Validators";
 import style from "../../../Common/Formcontrols/FormControl.module.css";
-import { ContactsType, PhotosType, ProfileType } from "../../../../redux/profile-reducer";
+import { ContactsType, ProfileType } from "../../../../redux/profile-reducer";
 
 type ProfileDataformOwnProps = {
   setEditMode: (editMode: boolean) => void

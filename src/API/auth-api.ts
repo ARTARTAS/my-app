@@ -1,16 +1,9 @@
-import { instance, ResultCodeEnum, ResultCodeForCaptchaEnum } from './API';
-
-type ResponseType<D = {}, RC = ResultCodeEnum> = {
-    data: D
-    messages: Array<string>
-    resultCode: RC
-}
+import { instance, ResponseType, ResultCodeEnum, ResultCodeForCaptchaEnum } from './API';
 
 type getAuthMeDataResponseType = {
     id: number,
     email: string,
     login: string
-
 }
 
 type LoginDataResponseType = {
