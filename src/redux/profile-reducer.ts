@@ -17,7 +17,7 @@ export type ProfileType = {
   photos: PhotosType;
   userId: number;  
 };
-type ContactsType = {
+export type ContactsType = {
   facebook: string;
   github: string;
   instagram: string;

@@ -1,11 +1,17 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import s from "./ProfileDataForm.module.css";
 import { Input, Textarea } from "../../../Common/Formcontrols/FormControls";
 import { required } from "../../../../Utils/Validators/Validators";
 import style from "../../../Common/Formcontrols/FormControl.module.css";
+import { ContactsType, PhotosType, ProfileType } from "../../../../redux/profile-reducer";
 
-const ProfileDataForm = ({ profile, handleSubmit, setEditMode, error }) => {
+type ProfileDataformOwnProps = {
+  setEditMode: (editMode: boolean) => void
+  profile: ProfileType
+}
+
+const ProfileDataForm: React.FC<InjectedFormProps<ProfileDataformValuesType, ProfileDataformOwnProps> & ProfileDataformOwnProps> = ({ profile, handleSubmit, setEditMode, error }) => {
   return (
     <form className={s.contacts}>
       <div className={s.edit_area}>
@@ -35,10 +41,7 @@ const ProfileDataForm = ({ profile, handleSubmit, setEditMode, error }) => {
         {Object.keys(profile.contacts).map((key) => {
           return (
             <Contact
-              key={key}
-              contactTitle={key}
-              contactValue={profile.contacts[key]}
-            />
+              contactTitle={key} />
           );
         })}
         <div className={s.lfj}>
@@ -78,11 +81,23 @@ const ProfileDataForm = ({ profile, handleSubmit, setEditMode, error }) => {
   );
 };
 
-const ProfileDataReduxForm = reduxForm({
+const ProfileDataReduxForm = reduxForm<ProfileDataformValuesType, ProfileDataformOwnProps>({
   form: "ProfileData",
 })(ProfileDataForm);
 
-const Contact = ({ contactTitle }) => {
+type ProfileDataformValuesType = {
+  aboutMe: string;
+  contacts: ContactsType;
+  fullName: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;    
+}
+
+type ContactPropsType = {
+  contactTitle: React.Key
+}
+
+const Contact: React.FC<ContactPropsType> = ({ contactTitle }) => {
   return (
     <div>
       <div className={s.contact} key={contactTitle}>
@@ -97,5 +112,7 @@ const Contact = ({ contactTitle }) => {
     </div>
   );
 };
+
+
 
 export default ProfileDataReduxForm;
