@@ -1,7 +1,7 @@
+import { profileAPI } from './../API/profile-api';
 import { AppStateType, InferActionsTypes } from './redux-store';
 import { ThunkAction } from 'redux-thunk';
 import { FormAction, stopSubmit } from "redux-form";
-import { profileAPI } from "../API/API";
 
 type PostDataType = {
   id: number;

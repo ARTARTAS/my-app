@@ -1,5 +1,6 @@
+import { usersAPI } from './../API/user-api';
 import { AppStateType, InferActionsTypes } from "./redux-store";
-import { ResultCodeEnum, usersAPI } from "../API/API";
+import { ResultCodeEnum} from "../API/API";
 import { ThunkAction } from "redux-thunk";
 
 type PhotosType = {

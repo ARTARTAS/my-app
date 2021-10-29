@@ -1,8 +1,9 @@
+import { securityAPI } from './../API/security-api';
+import { authAPI } from './../API/auth-api';
 import { ResultCodeEnum, ResultCodeForCaptchaEnum } from './../API/API';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType, InferActionsTypes } from './redux-store';
 import { FormAction, stopSubmit } from "redux-form";
-import { authAPI, securityAPI } from "../API/API";
 
 export type InitialStateType = {
   id: number | null;
