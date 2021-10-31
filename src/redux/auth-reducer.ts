@@ -67,20 +67,20 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
       rememberMe,
       captcha
     );
-    if (response.resultCode === ResultCodeEnum.OK) {
+    if (response.data.resultCode === ResultCodeEnum.OK) {
       dispatch(getAuth());
       dispatch(actions.getCaptchaUrlSuccess(null));
     } else {
-      if (response.resultCode === ResultCodeForCaptchaEnum['Captcha is required']) {
+      if (response.data.resultCode === ResultCodeForCaptchaEnum['Captcha is required']) {
         dispatch(getCaptchaURL());
+      } else {
+        let message = (response.data.messages.length > 0) ? response.data.messages[0] : "Some error";
+        let action = stopSubmit("Login", { _error: message });
+        dispatch(action);
       }
-      let message = response.messages.length > 0 ? response.messages[0] : "Some error";
-      let action = stopSubmit("Login", { _error: message });
-      dispatch(action); 
     }
   };
 export const getCaptchaURL = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
-  debugger;
   const response = await securityAPI.getCaptcha();
   const captchaUrl = response.url;
   dispatch(actions.getCaptchaUrlSuccess(captchaUrl));

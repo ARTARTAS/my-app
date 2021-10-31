@@ -7,7 +7,12 @@ type getAuthMeDataResponseType = {
 }
 
 type LoginDataResponseType = {
-    userId: number
+    resultCode: number,
+    messages: Array<string>,
+    data: {
+        userId: number
+    }
+    
 }
 
 type LoginMeDataType = {
@@ -23,7 +28,7 @@ export const authAPI = {
         ).then(response => response.data);
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
-        return instance.post<LoginMeDataType, ResponseType<LoginDataResponseType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`auth/login`, { email, password, rememberMe, captcha })
+        return instance.post<LoginMeDataType, ResponseType<LoginDataResponseType, ResultCodeEnum | ResultCodeForCaptchaEnum>>(`auth/login`, { email, password, rememberMe, captcha });
     },
     logout() {
         return (

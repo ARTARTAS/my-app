@@ -2,11 +2,9 @@ import { AppStateType, InferActionsTypes } from './redux-store';
 import { getAuth } from "./auth-reducer";
 import { ThunkAction } from 'redux-thunk';
 
-export type InitialStateType = {
-  initialized: boolean;
-};
+export type InitialStateType = typeof initialState;
 
-let initialState: InitialStateType = {
+let initialState = {
   initialized: false,
 };
 
