@@ -72,7 +72,7 @@ type LoginformValuesType = {
   email: string
   password: string
   rememberMe: boolean
-  captcha: string
+  captcha: string 
 }
 const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
   const onSubmit = (formData: LoginformValuesType) => {
