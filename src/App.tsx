@@ -12,17 +12,22 @@ import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 import { withSuspense } from './hoc/withSuspense';
 import { initializeApp } from './redux/app-reducer';
-import store from './redux/redux-store';
+import store, { AppStateType } from './redux/redux-store';
+
+
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'));
 
 
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializeApp: () => void
+}
 
-
-class App extends React.Component {
-  catchAllUnhandledErrors = (promiseRejectionEvent) => {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
+  catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
     // alert("Some error occured");
     console.log(promiseRejectionEvent)
   }
@@ -39,38 +44,38 @@ class App extends React.Component {
         <Preloader />)
     }
     return (
-      <div className='app-wrapper'>
+      <div className='app-wrapper' >
         <HeaderContainer />
-        <NavBarContainer />
+        < NavBarContainer />
         <div className='app-wrapper__content' >
           <Switch>
             <Route exact path='/' render={withSuspense(ProfileContainer)} />
             <Route path='/login' render={withSuspense(Login)} />
             <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-            <Route path='/dialogs' render={withSuspense(DialogsContainer)} />
-            <Route path='/users' render={withSuspense(UsersContainer)} />
+            <Route path='/dialogs' render={()=> withSuspense(DialogsContainer)} />
+            <Route path='/users' render={()=> withSuspense(UsersContainer)} />
             <Route path='/news' render={() => <News />} />
             <Route path='/music' render={() => <Music />} />
             <Route path='/settings' render={() => <Settings />} />
-            <Route path='*' render={() => <div>404 NOT FOUND</div>} />
+            <Route path='*' render={() => <div> 404 NOT FOUND </div>} />
           </Switch>
         </div>
+
       </div>
     );
   }
 };
 
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized
 })
 
-const AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
   withRouter,
   connect(mapStateToProps, { initializeApp }))(App);;
 
 
-const ReactApp = () => {
+const ReactApp: React.FC = () => {
   return (
     <Provider store={store} >
       <BrowserRouter>

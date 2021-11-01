@@ -1,3 +1,4 @@
+import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
@@ -11,7 +12,7 @@ let mapStateToProps = (state: AppStateType) => {
   };
 };
 
-const DialogsContainer = compose(
+const DialogsContainer = compose<React.ComponentType>(
   connect(mapStateToProps, {...actions}),
   withAuthRedirect
 )(Dialogs);
