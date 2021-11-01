@@ -1,6 +1,9 @@
-import { ProfileType } from "../redux/profile-reducer";
-import { instance } from './API';
-
+import { AxiosResponse } from "axios";
+import { PhotosType, ProfileType } from "../redux/profile-reducer";
+import { instance, ResponseType } from './API';
+type savePhotoResponseType = {
+    photos: PhotosType
+}
 export const profileAPI = {
     getProfile(id: number) {
         return (
@@ -17,15 +20,15 @@ export const profileAPI = {
             instance.put(`profile/status`, { status: text }).then(response => (response.data))
         )
     },
-    savePhoto(photo: Blob) {
+    savePhoto(photo: File) {
         let formData = new FormData();
         formData.append("image", photo)
         return (
-            instance.put(`profile/photo`, formData, {
+            instance.put<FormData, ResponseType<savePhotoResponseType>>(`profile/photo`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
-            }).then(response => (response.data))
+            })
         )
     },
     saveProfile(formData: ProfileType) {

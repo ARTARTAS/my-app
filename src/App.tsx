@@ -26,6 +26,12 @@ type DispatchPropsType = {
   initializeApp: () => void
 }
 
+const SuspendedDialogs = withSuspense(DialogsContainer)
+const SuspendedUsers = withSuspense(UsersContainer)
+const SuspendedProfile = withSuspense(ProfileContainer)
+const SuspendedLogin = withSuspense(Login)
+
+
 class App extends React.Component<MapPropsType & DispatchPropsType> {
   catchAllUnhandledErrors = (promiseRejectionEvent: any) => {
     // alert("Some error occured");
@@ -49,11 +55,11 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
         < NavBarContainer />
         <div className='app-wrapper__content' >
           <Switch>
-            <Route exact path='/' render={withSuspense(ProfileContainer)} />
-            <Route path='/login' render={withSuspense(Login)} />
-            <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)} />
-            <Route path='/dialogs' render={()=> withSuspense(DialogsContainer)} />
-            <Route path='/users' render={()=> withSuspense(UsersContainer)} />
+            <Route exact path='/' render={() => <SuspendedProfile />} />
+            <Route path='/login' render={() => <SuspendedLogin />} />
+            <Route path='/profile/:userId?' render={() => <SuspendedProfile />} />
+            <Route path='/dialogs' render={() => <SuspendedDialogs />} />
+            <Route path='/users' render={() => <SuspendedUsers />} />
             <Route path='/news' render={() => <News />} />
             <Route path='/music' render={() => <Music />} />
             <Route path='/settings' render={() => <Settings />} />

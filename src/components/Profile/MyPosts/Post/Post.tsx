@@ -1,7 +1,12 @@
 import React from "react";
 import s from "./Post.module.css";
 
-const Post = (props) => {
+type MapStateType={
+  message: string
+  likesCount: number
+}
+
+const Post:React.FC<MapStateType> = (props) => {
   return (
     <div className={`${s.item}`}>
       <img

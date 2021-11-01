@@ -3,7 +3,7 @@ import { AppStateType, InferActionsTypes } from './redux-store';
 import { ThunkAction } from 'redux-thunk';
 import { FormAction, stopSubmit } from "redux-form";
 
-type PostDataType = {
+export type PostDataType = {
   id: number;
   message: string;
   likesCount: number;
@@ -15,7 +15,7 @@ export type ProfileType = {
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   photos: PhotosType;
-  userId: number;  
+  userId: number | null;  
 };
 export type ContactsType = {
   facebook: string;
@@ -89,7 +89,7 @@ const profileReducer = (state = initialState, action: ActionTypes): InitialState
 type ActionTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
-  addPostActionCreator: (newPostText: string) => ({ type: 'ADD_POST', newPostText } as const),
+  addPost: (newPostText: string) => ({ type: 'ADD_POST', newPostText } as const),
   setUserProfile: (profile: object | null) => ({ type: 'SET_USER_PROFILE', profile } as const),
   setUserStatus: (text: string ) => ({ type: 'SET_USER_STATUS', text } as const),
   deletePost: (id: number) => ({ type: 'DELETE_POST', id } as const),
@@ -110,8 +110,8 @@ export const updateStatus = (text: string): ThunkAction<Promise<void>, AppStateT
     dispatch(actions.setUserStatus(text));
   }
 };
-export const savePhoto = (photo: any): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
-  let response: any = await profileAPI.savePhoto(photo);
+export const savePhoto = (photo: File): ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes> => async (dispatch) => {
+  let response = await profileAPI.savePhoto(photo);
   if (response.resultCode === 0) {
     dispatch(actions.savePhotoSucces(response.data.photos));
   }

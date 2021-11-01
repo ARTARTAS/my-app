@@ -14,8 +14,9 @@ type mapPropsType = {
     isAuth: boolean
 }
 
-type DispatchPropsType={    
+type DispatchPropsType = {
 }
+
 export function withAuthRedirect<WCP>(WrappedComponent: React.ComponentType<WCP>) {
     const RedirectComponent: React.FC<mapPropsType & DispatchPropsType> = (props) => {
         let { isAuth, ...restProps } = props

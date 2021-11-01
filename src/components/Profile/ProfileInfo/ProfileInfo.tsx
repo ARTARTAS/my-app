@@ -1,20 +1,34 @@
 import React, { useState } from "react";
+import { ContactsType, ProfileType } from "../../../redux/profile-reducer";
 import Preloader from "../../Common/Preloader/Preloader";
 import ProfileDataReduxForm from "./ProfileDataForm/ProfileDataForm";
 import s from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./Status/StatusWithHooks";
 
-const ProfileInfo = (props) => {
-  let isOwner = props.currentId == props.authId;
-  const [editMode, setEditMode] = useState(false);
-  const [photoEditMode, setphotoEditMode] = useState(false);
+type MapStateType = {
+  authId: number
+  currentId: number
+  profile: ProfileType
+  status: string
+}
+type MapDispatchType = {
+  savePhoto: (photo: File) => void
+  saveProfile: (formData: ProfileType) => Promise<any>
+  updateStatus: (text: string) => void
+}
 
-  const onMainPhotoSelected = (e) => {    
+
+const ProfileInfo: React.FC<MapStateType & MapDispatchType> = (props) => {
+  let isOwner = props.currentId == props.authId;
+  const [editMode, setEditMode] = useState<boolean>(false);
+  const [photoEditMode, setphotoEditMode] = useState<boolean>(false);
+
+  const onMainPhotoSelected = (e: any) => {
     if (e.target.files.length) {
       props.savePhoto(e.target.files[0]);
     }
   };
-  let onSubmit = (formData) => {
+  let onSubmit = (formData: ProfileType) => {
     props.saveProfile(formData).then(() => {
       setEditMode(false);
     });
@@ -30,15 +44,15 @@ const ProfileInfo = (props) => {
         onMouseEnter={
           isOwner
             ? () => {
-                setphotoEditMode(true);
-              }
+              setphotoEditMode(true);
+            }
             : undefined
         }
         onMouseLeave={
           isOwner
             ? () => {
-                setphotoEditMode(false);
-              }
+              setphotoEditMode(false);
+            }
             : undefined
         }
       >
@@ -75,7 +89,7 @@ const ProfileInfo = (props) => {
           <ProfileDataReduxForm
             profile={props.profile}
             initialValues={props.profile}
-            onSubmit={onSubmit}
+            onSubmit={onSubmit as any}
             setEditMode={setEditMode}
           />
         ) : (
@@ -90,7 +104,13 @@ const ProfileInfo = (props) => {
   );
 };
 
-const ProfileData = ({ profile, isOwner, setEditMode }) => {
+type ProfileDataPropstype = {
+  profile: ProfileType
+  isOwner: boolean
+  setEditMode: (editMode:boolean) => void
+}
+
+const ProfileData: React.FC<ProfileDataPropstype> = ({ profile, isOwner, setEditMode }) => {
   return (
     <div className={s.contacts}>
       <div>
@@ -104,7 +124,7 @@ const ProfileData = ({ profile, isOwner, setEditMode }) => {
             <Contact
               key={key}
               contactTitle={key}
-              contactValue={profile.contacts[key] ? profile.contacts[key] : null}
+              contactValue={profile.contacts[key as keyof ContactsType] ? profile.contacts[key as keyof ContactsType] : ""}
             />
           );
         })}
@@ -127,10 +147,16 @@ const ProfileData = ({ profile, isOwner, setEditMode }) => {
   );
 };
 
-export const Contact = ({ Key, contactTitle, contactValue }) => {
+type ContactPropsType = {
+  key: string
+  contactTitle: string
+  contactValue: string
+}
+
+export const Contact: React.FC<ContactPropsType> = ({ key, contactTitle, contactValue }) => {
   return (
     <div>
-      <div className={s.contact} key={Key}>
+      <div className={s.contact} key={key}>
         <b>{contactTitle}</b>: {contactValue}
       </div>
     </div>
