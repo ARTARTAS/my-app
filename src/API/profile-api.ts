@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import { PhotosType, ProfileType } from "../redux/profile-reducer";
 import { instance, ResponseType } from './API';
 type savePhotoResponseType = {
