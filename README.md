@@ -1,4 +1,21 @@
-# CRUD:
+# The POOLZ Backend
+
+* [CRUD](#crud):
+    - [DBwriter](#dbwriter)
+    - [DBreader](#dbreader)
+    - [DBupdater](#dbupdater)
+    - [DBdeleter](#dbdeleter)
+* [APIs](#apis):
+    - [APICrawlerStatus](#apicrawlerstatus)
+* [Crawler](#crawler):
+    - [CrawlerLoader](#crawlerloader)
+    - [CrawlerVerifier](#crawlerverifier)
+    - [CrawlerDownloaderRPC](#crawlerdownloaderrpc-and-crawlerdownloadercovalent)
+    - [CrawlerDownloaderCovalent](#crawlerdownloaderrpc-and-crawlerdownloadercovalent)
+    - [CrawlerLogSaver](#crawlerlogsaver)
+
+
+## CRUD:
 
 ### DBwriter:
 
@@ -154,7 +171,7 @@ JSON string format
 
 
 
-# APIs:
+## APIs:
 
 ### APICrawlerStatus:
 
@@ -168,7 +185,7 @@ When called takes contracts from the database, takes the status of the last bloc
 ```
 </details>
 
-# Crawler:
+## Crawler:
 
 
 ### CrawlerLoader:
